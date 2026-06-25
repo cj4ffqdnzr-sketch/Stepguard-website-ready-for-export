@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stepguard · Over ons</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiI+PHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMjIiIGZpbGw9IiMxNjIwMmMiLz48cGF0aCBkPSJNMzYgMjAgTDYwIDIwIFE2MyAyMCA2NSAyMiBMNjcuNSAyNSBRNjkgMjcgNjkgMzAgTDY5IDUwIFE2OSA2NyA0OS41IDc3LjIgUTQ4IDc4IDQ2LjUgNzcuMiBRMjcgNjcgMjcgNTAgTDI3IDMwIFEyNyAyNyAyOC41IDI1IEwzMSAyMiBRMzMgMjAgMzYgMjAgWiIgZmlsbD0iI2VlZjFmMyIvPjxyZWN0IHg9IjMyIiB5PSI1MyIgd2lkdGg9IjE1IiBoZWlnaHQ9IjciIHJ4PSIyLjUiIGZpbGw9IiMxNjIwMmMiLz48cmVjdCB4PSIzOS41IiB5PSI0NiIgd2lkdGg9IjE1IiBoZWlnaHQ9IjciIHJ4PSIyLjUiIGZpbGw9IiMxNjIwMmMiLz48cmVjdCB4PSI0NyIgeT0iMzkiIHdpZHRoPSIxNSIgaGVpZ2h0PSI3IiByeD0iMi41IiBmaWxsPSIjZTA1MjFmIi8+PC9zdmc+" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #04070c;
+    --bg-2: #070b12;
+    --surface: #0b1119;
+    --surface-2: #0f1722;
+    --line: rgba(255,255,255,.07);
+    --line-strong: rgba(255,255,255,.14);
+    --text: #E8EEF5;
+    --muted: #8493A8;
+    --dim: #5A6776;
+    --steel: #BCC8D6;
+    --accent: #e0521f;
+    --accent-2: #f3936a;
+    --accent-deep: #a3401a;
+    --word-grey: #8c949e;
+    --laser: #FF2A2A;
+    --ok: #38D38A;
+    --warn: #F5C24D;
+    --hot: #FF6A3D;
+    --maxw: 1180px;
+    --pad: clamp(20px, 4vw, 56px);
+    --display: "Space Grotesk", ui-sans-serif, system-ui;
+    --body: "Manrope", ui-sans-serif, system-ui;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* SDG palette */
+    --sdg-9:  #F5A623;
+    --sdg-11: #F99D26;
+    --sdg-12: #BF8B2E;
+    --sdg-13: #3F7E44;
+    --sdg-16: #00689D;
+    --sdg-17: #19486A;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:#fff}
+
+  .bg-grid{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center top, rgba(0,0,0,1), rgba(0,0,0,.4) 60%, transparent 90%);
+    opacity: .55;
+  }
+
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); position: relative; z-index: 1;}
+
+  /* ---------- Nav ---------- */
+  nav.top{
+    position: sticky; top: 0; z-index: 30;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: var(--maxw); margin: 0 auto; padding: 14px var(--pad);
+    display:flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .brand{ display:flex; align-items: center; gap: 10px;}
+  .brand-mark{ width: 30px; height: 30px; display:grid; place-items: center;}
+  .brand-mark svg{ width: 100%; height: 100%; display:block;}
+  .brand-name{ font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: -.02em; color:#8c949e;}
+  .brand-name b{ color: var(--accent);}
+  .back{
+    font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+    color: var(--steel); display:inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px;
+    transition: border-color .15s, color .15s;
+  }
+  .back:hover{ border-color: var(--accent); color: var(--accent-2);}
+  .back svg{ width: 14px; height: 14px;}
+  .nav-links{ display:flex; gap:26px; align-items:center; }
+  .nav-links a{ font-family:var(--display); font-size:14px; font-weight:500; color:var(--steel); letter-spacing:-.005em; transition:color .15s; }
+  .nav-links a:hover{ color:var(--accent-2); }
+  .nav-links a.active{ color:var(--accent-2); }
+  @media(max-width:680px){ .nav-links{ display:none; } }
+  .team-photo img{ width:100%; height:100%; object-fit:cover; object-position:center top; display:block; border-radius:inherit; transition:transform .35s ease; }
+  .team-photo{ position:relative; width:100%; aspect-ratio:1/1; border-radius:10px; margin-bottom:18px; overflow:hidden; background:repeating-linear-gradient(135deg, rgba(127,127,127,.10) 0 12px, transparent 12px 24px), var(--surface-2); bo(--surface-2); border:1px solid var(--line); display:grid; place-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--dim); }
+  .role-tag{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); }
+  /* Clickable team photo -> jumps to that person's contact details */
+  .team-link{ display:block; width:100%; height:100%; position:absolute; inset:0; cursor:pointer; }
+  .team-link::after{ content:"Contact \2192"; position:absolute; left:0; right:0; bottom:0; padding:30px 14px 12px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:linear-gradient(transparent, rgba(15,23,34,.82)); opacity:0; transform:translateY(6px); transition:opacity .25s, transform .25s; }
+  .team-photo:hover .team-link::after{ opacity:1; transform:translateY(0); }
+  .team-photo:hover img{ transform:scale(1.04); }
+  .person[id]{ scroll-margin-top:90px; border-radius:12px; transition:background .4s; }
+  .person[id]:target{ background:rgba(224,82,31,.14); }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:48px; }
+  @media(max-width:760px){ .grid-3{ grid-template-columns:1fr; } }
+  .factrow{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:48px; }
+  @media(max-width:760px){ .factrow{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding: 100px 0 60px;}
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent-2); display:flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before{ display:none;}
+  h1.title{
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(40px, 5.5vw, 68px); letter-spacing: -.03em; line-height: 1.04;
+    margin: 20px 0 22px; max-width: 900px; text-wrap: balance;
+  }
+  h1.title em{ font-style: normal; color: var(--accent-2);}
+  .lede{ font-size: clamp(16px, 1.5vw, 18px); color: var(--steel); line-height: 1.65; max-width: 760px;}
+  .lede strong{ color: var(--text); font-weight: 500;}
+
+  /* ---------- SDG hero strip ---------- */
+  .sdg-strip{
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+  }
+  @media(max-width: 900px){ .sdg-strip{ grid-template-columns: repeat(3,1fr);}}
+  @media(max-width: 520px){ .sdg-strip{ grid-template-columns: repeat(2,1fr);}}
+  .sdg-tile{
+    position: relative; isolation: isolate; overflow: hidden;
+    aspect-ratio: 1/1; border-radius: 16px;
+    background: var(--c); color: #fff; padding: 16px;
+    display:flex; flex-direction: column; justify-content: space-between;
+  }
+  .sdg-tile::after{
+    content:""; position: absolute; inset:0; pointer-events: none;
+    background: linear-gradient(160deg, rgba(255,255,255,.14), transparent 60%);
+  }
+  .sdg-tile .num{ font-family: var(--display); font-weight: 700; font-size: clamp(40px, 4.8vw, 72px); line-height: .9; letter-spacing: -.04em;}
+  .sdg-tile .ttl{ font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.35; opacity: .95;}
+
+  /* ---------- Dimension sections ---------- */
+  .dim-section{ padding: 80px 0; border-top: 1px solid var(--line);}
+  .dim-head{
+    display:grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: end;
+    margin-bottom: 36px;
+  }
+  @media(max-width: 760px){ .dim-head{ grid-template-columns: 1fr; gap: 16px; }}
+  .dim-num{
+    font-family: var(--display); font-weight: 700; font-size: clamp(72px, 9vw, 132px);
+    color: var(--accent); line-height: .9; letter-spacing: -.05em;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent-deep));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .dim-title{
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -.02em; line-height: 1.1;
+    margin: 0 0 10px;
+  }
+  .dim-lede{ color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 620px;}
+
+  .table{
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,.012), transparent);
+  }
+  .row{
+    display:grid; grid-template-columns: 260px 1fr 160px;
+    gap: 24px; padding: 24px 28px;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .row:last-child{ border-bottom: 0;}
+  @media(max-width: 860px){ .row{ grid-template-columns: 1fr; gap: 12px;}}
+  .row .aspect{
+    font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.3;
+    color: var(--text); letter-spacing: -.01em;
+  }
+  .row .detail{
+    color: var(--steel); font-size: 14px; line-height: 1.65;
+  }
+  .row .sdgs{ display:flex; flex-wrap: wrap; gap: 6px; align-items: flex-start; justify-content: flex-end;}
+  @media(max-width: 860px){ .row .sdgs{ justify-content: flex-start; }}
+  .sdg-pill{
+    display:inline-flex; align-items: center; gap: 6px;
+    padding: 5px 10px; border-radius: 6px;
+    background: rgba(255,255,255,.04); border: 1px solid var(--line-strong);
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--text);
+  }
+  .sdg-pill::before{
+    content:""; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--accent));
+  }
+
+  /* ---------- Closing ---------- */
+  .closer{
+    margin: 80px var(--pad);
+    max-width: var(--maxw);
+    border: 1px solid var(--accent-deep);
+    border-radius: 16px;
+    padding: 60px 48px;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(224,82,31,.10), transparent 60%),
+      linear-gradient(180deg, #0a1320, #060a12);
+    display:grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  @media(max-width: 800px){ .closer{ grid-template-columns: 1fr; padding: 40px 28px; margin: 60px var(--pad);}}
+  .closer h2{
+    font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3vw, 38px); letter-spacing: -.025em; line-height: 1.1; margin: 0 0 14px; text-wrap: balance;
+  }
+  .closer p{ color: var(--steel); font-size: 15px; line-height: 1.6; margin: 0;}
+  .closer .stats{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 12px;}
+  .stat{
+    border: 1px solid var(--line); padding: 18px; border-radius: 10px;
+    background: rgba(255,255,255,.02);
+  }
+  .stat .v{ font-family: var(--display); font-weight: 600; font-size: 26px; color: var(--accent-2); line-height: 1.05;}
+  .stat .l{ font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px;}
+
+  .btn{
+    display:inline-flex; align-items: center; gap: 6px;
+    padding: 13px 22px; border-radius: 999px;
+    font-family: var(--display); font-weight: 500; font-size: 14px; letter-spacing: -.005em;
+    transition: transform .15s, background .15s, box-shadow .15s;
+    cursor: pointer;
+  }
+  .btn-primary{ background: var(--accent); color: #fff; border: 1px solid var(--accent);}
+  .btn-primary:hover{ background: var(--accent-2); border-color: var(--accent-2); transform: translateY(-1px); box-shadow: 0 10px 26px rgba(224,82,31,.28);}
+
+  /* ---------- Footer ---------- */
+  footer.foot{
+    border-top: 1px solid var(--line); padding: 36px var(--pad); margin-top: 80px;
+    display:flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    max-width: var(--maxw); margin-left: auto; margin-right: auto;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--dim);
+  }
+
+  /* ---------- Product sections (ported from main site) ---------- */
+  .section{ padding: 110px 0; border-top: 1px solid var(--line); }
+  @media (max-width: 768px){ .section{ padding: 72px 0; } }
+  .section-eyebrow{ font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-2); display:flex;align-items:center;gap:12px; }
+  .section-eyebrow::before{ display:none; }
+  h2.section-title{ font-family: var(--display); font-weight: 600; font-size: clamp(30px, 4vw, 52px); letter-spacing: -.025em; line-height: 1.05; margin: 14px 0 0; max-width: 20ch; text-wrap: balance; }
+  .section-lede{ color: var(--steel); margin-top: 22px; font-size: 17px; line-height: 1.55; max-width: 62ch; }
+
+  .btn-ghost{ background: transparent; color: var(--text); border: 1px solid var(--line-strong); }
+  .btn-ghost:hover{ border-color: var(--accent); color: var(--accent-2); transform: translateY(-1px); }
+  .hero-ctas{ display:flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+
+  .grid-4{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin-top: 56px; }
+  @media(max-width:1024px){ .grid-4{ grid-template-columns: repeat(2,1fr) }}
+  @media(max-width:560px){ .grid-4{ grid-template-columns: 1fr }}
+  .feature{ padding: 28px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(180deg, var(--surface), var(--surface-2)); transition: transform .2s, border-color .2s; display:flex;flex-direction:column; }
+  .feature:hover{ transform: translateY(-3px); border-color: var(--line-strong); }
+  .feature .num{ font-family: var(--mono); font-size: 11px; color: var(--accent-2); letter-spacing: .2em; display:flex; justify-content: space-between; align-items: center; }
+  .feature .num .ico{ width: 32px; height: 32px; border-radius: 8px; background: rgba(224,82,31,.08); border: 1px solid rgba(224,82,31,.2); display:grid;place-items:center; color: var(--accent-2); }
+  .feature h3{ font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -.015em; margin: 22px 0 10px; line-height: 1.1; }
+  .feature p{ color: var(--steel); font-size: 14px; line-height: 1.55; margin: 0;}
+  .feature .spec{ margin-top: auto; padding-top: 18px; border-top: 1px dashed var(--line); display:flex; gap: 14px; flex-wrap: wrap;}
+  .feature .spec span{ font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+
+  .system{ padding: 110px 0; border-top: 1px solid var(--line); }
+  .gallery-grid{ margin-top: 56px; display:grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 14px; }
+  @media(max-width:900px){ .gallery-grid{ grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 240px); } }
+  @media(max-width:560px){ .gallery-grid{ grid-template-columns: 1fr; grid-template-rows: repeat(5, 220px); } }
+  .gallery-item{ position: relative; border: 1px solid var(--line); border-radius: 14px; background: repeating-linear-gradient(135deg, rgba(0,0,0,.022) 0 12px, rgba(0,0,0,0) 12px 24px), linear-gradient(180deg, var(--surface), var(--surface-2)); overflow: hidden; display:flex; align-items: flex-end; justify-content: flex-start; padding: 22px; transition: border-color .2s; }
+  .gallery-item:hover{ border-color: var(--line-strong); }
+  .gallery-item.feature{ grid-row: span 2; }
+  @media(max-width:900px){ .gallery-item.feature{ grid-row: span 1; grid-column: span 2; } }
+  @media(max-width:560px){ .gallery-item.feature{ grid-column: span 1; } }
+  .gallery-item .corner{ position: absolute; top: 16px; left: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); display:inline-flex; align-items: center; gap: 8px; }
+  .gallery-item .corner::before{ content:""; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent);}
+  .gallery-item .meta{ position: absolute; top: 16px; right: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--dim); }
+  .gallery-item .placeholder{ position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--dim); white-space: nowrap; }
+  .gallery-item .scan{ position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(224,82,31,.04) 50%, transparent 100%); pointer-events: none; }
+  .gallery-item .caption{ position: relative; z-index: 1; }
+  .gallery-item .caption .lbl{ font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 6px;}
+  .gallery-item .caption .ttl{ font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: -.01em; color: var(--text); }
+  .gallery-item .caption .sub{ font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 6px; max-width: 36ch; }
+</style>
+
+<!-- ===== Storyline shared sections (quote, over, benefits, besparing, contact) ===== -->
+<style id="storyline-shared">
+  /* Platform showcase */
+  .pf-split{ display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items:center; margin-top: 52px; }
+  @media(max-width:880px){ .pf-split{ grid-template-columns:1fr; gap:28px; } }
+  .pf-feats{ display:flex; flex-direction:column; gap:14px; }
+  .pf-feat{ display:grid; grid-template-columns: 40px 1fr; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .pf-feat:last-child{ border-bottom:0; }
+  .pf-feat .ic{ width:40px; height:40px; border-radius:10px; background:rgba(224,82,31,.08); border:1px solid rgba(224,82,31,.22); display:grid; place-items:center; color:var(--accent-2); }
+  .pf-feat h4{ font-family:var(--display); font-weight:600; font-size:18px; letter-spacing:-.01em; margin:2px 0 6px; color:var(--text); }
+  .pf-feat p{ color:var(--muted); font-size:14px; line-height:1.55; margin:0; }
+  .pf-shot{ position:relative; border:1px solid var(--line); border-radius:16px; min-height:360px; overflow:hidden;
+    background: repeating-linear-gradient(135deg, rgba(127,127,127,.07) 0 12px, transparent 12px 24px), linear-gradient(180deg,var(--surface),var(--surface-2)); display:grid; place-items:center; }
+  .pf-shot .ph{ font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--dim); }
+  .pf-shot .corner{ position:absolute; top:16px; left:16px; font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); display:inline-flex; align-items:center; gap:8px; }
+  .pf-shot .corner::before{ content:""; width:5px; height:5px; background:var(--accent); border-radius:50%; box-shadow:0 0 6px var(--accent); }
+
+  /* Benefits */
+  .benefit-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:52px; }
+  @media(max-width:1024px){ .benefit-grid{ grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .benefit-grid{ grid-template-columns:1fr;} }
+  .benefit{ display:flex; flex-direction:column; padding:26px; border:1px solid var(--line); border-radius:14px; background:var(--surface); transition:transform .2s,border-color .2s; }
+  .benefit:hover{ transform:translateY(-3px); border-color:var(--line-strong); }
+  .benefit .bn{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--accent-2); }
+  .benefit h4{ font-family:var(--display); font-weight:600; font-size:20px; letter-spacing:-.015em; margin:18px 0 8px; line-height:1.12; color:var(--text); }
+  .benefit p{ color:var(--muted); font-size:13.5px; line-height:1.55; margin:0; }
+  .benefit .bl{ margin-top:auto; padding-top:20px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--accent-2); display:inline-flex; gap:7px; align-items:center; transition:gap .2s; }
+  .benefit:hover .bl{ gap:11px; }
+
+  /* Over Stepguard intro band */
+  .over-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  @media(max-width:880px){ .over-grid{ grid-template-columns:1fr; gap:28px; } }
+  .over-stats{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .over-stat{ border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:22px; }
+  .over-stat .v{ font-family:var(--display); font-weight:600; font-size:30px; color:var(--accent-2); line-height:1; letter-spacing:-.02em; }
+  .over-stat .l{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:8px; }
+
+  /* Klant quote */
+  .quote-card{ display:grid; grid-template-columns:300px 1fr; border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--surface); margin-top:8px; }
+  @media(max-width:760px){ .quote-card{ grid-template-columns:1fr; } }
+  .quote-photo{ position:relative; min-height:300px; display:grid; place-items:center; border-right:1px solid var(--line);
+    background:repeating-linear-gradient(135deg, rgba(127,127,127,.08) 0 12px, transparent 12px 24px), linear-gradient(180deg,var(--surface-2),var(--surface)); }
+  @media(max-width:760px){ .quote-photo{ border-right:0; border-bottom:1px solid var(--line); min-height:200px; } }
+  .quote-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; }
+  .quote-photo .ph{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--dim); }
+  .quote-body{ padding:48px; display:flex; flex-direction:column; justify-content:center; }
+  @media(max-width:760px){ .quote-body{ padding:32px; } }
+  .quote-body .mark{ font-family:var(--display); font-weight:700; font-size:64px; line-height:.5; color:var(--accent); }
+  .quote-body blockquote{ font-family:var(--display); font-weight:500; font-size:clamp(20px,2.4vw,30px); letter-spacing:-.015em; line-height:1.3; margin:18px 0 26px; text-wrap:balance; color:var(--text); }
+  .quote-body .by{ display:flex; align-items:center; gap:14px; }
+  .quote-body .by .nm{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--text); }
+  .quote-body .by .ti{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--muted); margin-top:3px; }
+  .quote-logo{ font-family:var(--display); font-weight:700; font-size:20px; letter-spacing:.06em; color:var(--steel); margin-left:auto; }
+
+  /* CTA band (boek een demo) */
+  .cta-band{ padding:80px 0; border-top:1px solid var(--line); text-align:center; }
+  .cta-band h3{ font-family:var(--display); font-weight:600; font-size:clamp(24px,3vw,38px); letter-spacing:-.02em; margin:0 0 24px; text-wrap:balance; color:var(--text); }
+  .cta-band .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+  /* Besparing band: centered layout so the heading sits in the middle, matching the cta-band */
+  .closer.is-centered{ grid-template-columns: 1fr; text-align:center; }
+  .closer.is-centered > div:first-child{ max-width: 720px; margin-inline: auto; }
+  .closer.is-centered .section-eyebrow{ justify-content:center; }
+  .closer.is-centered .stats{ max-width: 560px; margin-inline: auto; width:100%; }
+  .closer.is-centered .stat{ text-align:center; }
+
+  /* Besparing band (.closer) sits on a dark gradient — force light text */
+  .closer h2{ color:#fff; }
+  .closer p{ color:rgba(255,255,255,.78); }
+  .closer .section-eyebrow{ color:var(--accent-2); }
+  .closer .section-eyebrow::before{ background:var(--accent); }
+  .closer .stat{ border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.03); }
+  .closer .stat .v{ color:var(--accent-2); }
+  .closer .stat .l{ color:rgba(255,255,255,.6); }
+
+  /* Contact section (dark card) */
+  .cta{ margin:80px auto; max-width:var(--maxw); border:1px solid var(--accent-deep); border-radius:22px; padding:64px 56px;
+    background: radial-gradient(60% 80% at 10% 10%, rgba(224,82,31,.16), transparent 60%), linear-gradient(180deg,#0a131e,#050810); overflow:hidden; position:relative; }
+  @media(max-width:900px){ .cta{ padding:36px 28px; margin:60px var(--pad); } }
+  .cta .cta-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:40px; align-items:flex-start; position:relative; z-index:1; }
+  @media(max-width:900px){ .cta .cta-grid{ grid-template-columns:1fr; } }
+  .cta h2{ font-family:var(--display); font-weight:600; font-size:clamp(30px,3.5vw,46px); letter-spacing:-.025em; line-height:1.05; margin:0; text-wrap:balance; color:#fff; }
+  .cta p{ color:rgba(255,255,255,.78); margin-top:16px; max-width:50ch; line-height:1.55; }
+  .cta .section-eyebrow{ color:var(--accent-2); }
+  .cta .section-eyebrow::before{ background:var(--accent); }
+  .cta-form{ display:flex; flex-direction:column; gap:10px; }
+  .cta-form input{ padding:14px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.06); color:#fff; font:inherit; outline:none; transition:border-color .15s,background .15s; }
+  .cta-form input::placeholder{ color:rgba(255,255,255,.45); }
+  .cta-form input:focus{ border-color:var(--accent); background:rgba(255,255,255,.1); }
+  .cta-form .row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .cta-form button{ margin-top:4px; }
+  .cta-form .hint{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,.55); letter-spacing:.08em; }
+  .people{ display:grid; grid-template-columns:1fr; gap:0; border-top:1px solid rgba(255,255,255,.14); margin-top:28px; }
+  .person{ display:grid; grid-template-columns:64px 1fr auto; gap:18px; padding:22px 0; align-items:center; border-bottom:1px solid rgba(255,255,255,.14); transition:padding-left .2s; }
+  .person:hover{ padding-left:6px; }
+  .person .avatar{ width:56px; height:56px; border-radius:14px; overflow:hidden; display:grid; place-items:center; font-family:var(--display); font-weight:700; font-size:20px; background:rgba(224,82,31,.12); border:1px solid rgba(224,82,31,.45); color:var(--accent-2); }
+  .person .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .person .info{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+  .person .info .role{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.6); }
+  .person .info .name{ font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:-.01em; color:#fff; }
+  .person .info .email{ color:rgba(255,255,255,.72); font-size:14px; font-family:var(--mono); letter-spacing:.01em; transition:color .15s; word-break:break-all; }
+  .person .info .email:hover{ color:var(--accent-2); }
+  .person .arrow-btn{ width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff; display:grid; place-items:center; flex-shrink:0; transition:background .15s,border-color .15s,color .15s; }
+  .person .arrow-btn:hover{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .address-block{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; padding:26px 0 4px; margin-top:6px; border-top:1px solid rgba(255,255,255,.14); }
+  @media(max-width:560px){ .address-block{ grid-template-columns:1fr; gap:18px; } }
+  .address-block .lbl{ font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:8px; }
+  .address-block .val{ font-family:var(--display); font-weight:500; font-size:15px; color:#fff; line-height:1.5; }
+  .address-block .val.mono{ font-family:var(--mono); letter-spacing:.04em; font-weight:400; }
+</style>
+
+<!-- Theme boot — apply persisted theme inline (no flash) -->
+<script>
+(function bootTheme(){
+  var THEME_VARS = {
+    midnight:{'--bg':'#04070c','--bg-2':'#070b12','--surface':'#0b1119','--surface-2':'#0f1722','--line':'rgba(255,255,255,.07)','--line-strong':'rgba(255,255,255,.14)','--text':'#E8EEF5','--muted':'#8493A8','--dim':'#5A6776','--steel':'#BCC8D6','--accent':'#e0521f','--accent-2':'#f3936a','--accent-deep':'#a3401a','--laser':'#FF2A2A','--ok':'#38D38A','--warn':'#F5C24D','--hot':'#FF6A3D'},
+    amber:{'--bg':'#0d0907','--bg-2':'#14100c','--surface':'#1a1410','--surface-2':'#221a14','--line':'rgba(255,230,200,.07)','--line-strong':'rgba(255,230,200,.14)','--text':'#F3EDE5','--muted':'#A89C8A','--dim':'#6E6354','--steel':'#D4C8B6','--accent':'#F59E0B','--accent-2':'#FCD34D','--accent-deep':'#783F0B','--laser':'#FF3838','--ok':'#84CC16','--warn':'#F5C24D','--hot':'#FB7185'},
+    forest:{'--bg':'#04100c','--bg-2':'#061814','--surface':'#0a1f1a','--surface-2':'#102b24','--line':'rgba(180,240,210,.07)','--line-strong':'rgba(180,240,210,.14)','--text':'#E5F2EC','--muted':'#7E9B91','--dim':'#4F6A60','--steel':'#B8D4C6','--accent':'#14B886','--accent-2':'#4ADE80','--accent-deep':'#0a5840','--laser':'#FB3A3A','--ok':'#38D38A','--warn':'#F5C24D','--hot':'#FF6A3D'},
+    crimson:{'--bg':'#0a0a0a','--bg-2':'#111111','--surface':'#161616','--surface-2':'#1c1c1c','--line':'rgba(255,255,255,.06)','--line-strong':'rgba(255,255,255,.12)','--text':'#EDEDED','--muted':'#888888','--dim':'#555555','--steel':'#C0C0C0','--accent':'#DC2626','--accent-2':'#F87171','--accent-deep':'#6B0F0F','--laser':'#DC2626','--ok':'#A3A3A3','--warn':'#D4D4D4','--hot':'#F87171'},
+    plum:{'--bg':'#08050f','--bg-2':'#0e0a16','--surface':'#14101e','--surface-2':'#1c1730','--line':'rgba(220,210,255,.07)','--line-strong':'rgba(220,210,255,.14)','--text':'#ECE8F5','--muted':'#9489A8','--dim':'#5F557A','--steel':'#C8BDD6','--accent':'#8B5CF6','--accent-2':'#C4B5FD','--accent-deep':'#4C1D95','--laser':'#FF2A6A','--ok':'#34D399','--warn':'#FBBF24','--hot':'#F472B6'},
+    paper:{'--bg':'#F4F1EC','--bg-2':'#ECE7DE','--surface':'#FFFFFF','--surface-2':'#F8F4EC','--line':'rgba(15,25,40,.08)','--line-strong':'rgba(15,25,40,.18)','--text':'#14181D','--muted':'#5A6776','--dim':'#8A96A3','--steel':'#3A4350','--accent':'#e0521f','--accent-2':'#cf4a1c','--accent-deep':'#a3401a','--laser':'#C81313','--ok':'#16A34A','--warn':'#D97706','--hot':'#DC2626'}
+  };
+  var key = 'paper';
+  try { key = localStorage.getItem('sg_theme') || key; } catch(_){}
+  var v = THEME_VARS[key] || THEME_VARS.midnight;
+  var root = document.documentElement;
+  for (var k in v) root.style.setProperty(k, v[k]);
+  root.dataset.theme = key;
+})();
+</script>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav class="top">
+  <div class="nav-inner">
+    <a href="index.html" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
+    <div class="nav-links">
+      <a href="Product.html">Product</a>
+      <a href="Over-ons.html" class="active">Over ons</a>
+      <a href="Contact.html">Contact</a>
+    </div>
+    <a href="Contact.html" class="btn btn-primary">Demo aanvragen</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Over ons</div>
+    <h1 class="title">Voorspellend toezicht, <em>gebouwd in Nederland</em>.</h1>
+    <p class="lede">Stepguard is een <strong>Cboost-spin-off</strong> met één missie: roltrap-storingen voorkomen vóórdat ze gebeuren. We combineren industriële AI-vision met een meertalig asset-platform, zodat operators van reactief onderhoud naar planbare zekerheid gaan.</p>
+    <div class="hero-ctas">
+      <a href="Contact.html" class="btn btn-primary">Neem contact op</a>
+      <a href="Product.html" class="btn btn-ghost">Bekijk het product</a>
+    </div>
+  </div>
+</section>
+
+<!-- MISSIE -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Missie &amp; visie</div>
+    <h2 class="section-title">Geen passagier zou stil mogen vallen op een versleten trede.</h2>
+    <p class="section-lede">Elke dag vallen roltrappen uit op het slechtst denkbare moment. De rekening voor spoedreparatie, stilstand en veiligheidsrisico komt achteraf. Onze missie is om dat om te draaien: slijtage weken vooraf zichtbaar, onderhoud gepland, treden langer mee. Onze visie reikt verder dan de roltrap: voorspellend toezicht als standaard voor alle Europese publieke infrastructuur, gebouwd in Nederland.</p>
+    <div class="grid-4">
+      <div class="feature"><div class="num">01</div><h3>Voorkomen</h3><p>Detecteer slijtage en schade weken voordat een trede faalt.</p></div>
+      <div class="feature"><div class="num">02</div><h3>Plannen</h3><p>Van noodoproep naar geplande dagdienst-ingreep, zonder verrassingen.</p></div>
+      <div class="feature"><div class="num">03</div><h3>Verlengen</h3><p>Langere levensduur van treden, minder materiaal, minder CO₂.</p></div>
+      <div class="feature"><div class="num">04</div><h3>Vertrouwen</h3><p>AI suggereert, de mens beslist, conform de EU AI Act.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WIE IS STEPGUARD -->
+<section class="section" id="wie">
+  <div class="wrap">
+    <div class="section-eyebrow">Wie is Stepguard</div>
+    <h2 class="section-title">Ontstaan uit vijftig jaar techniek, gelanceerd met NS.</h2>
+    <p class="section-lede">Stepguard is geen start van nul. We bouwen voort op decennia hands-on ervaring met aandrijving, mechatronica en industriële vision, samengebracht in één voorspellend platform voor roltrappen.</p>
+    <div class="grid-4">
+      <div class="feature">
+        <div class="num">01 · Herkomst</div>
+        <h3>Uit VDB &amp; Cboost</h3>
+        <p>Een spin-off geboren uit twee Nederlandse techniekbedrijven: VDB en Cboost. Hun engineering-DNA zit in elke regel van het product.</p>
+      </div>
+      <div class="feature">
+        <div class="num">02 · Ervaring</div>
+        <h3>50 jaar in de praktijk</h3>
+        <p>Een halve eeuw gecombineerde ervaring in aandrijving, onderhoud en industriële systemen: niet de aanname van wat slijtage is, maar de kennis ervan.</p>
+      </div>
+      <div class="feature">
+        <div class="num">03 · Technologie</div>
+        <h3>Frontline AI-vision</h3>
+        <p>We brengen frontline innovatieve technologie naar een sector die nog grotendeels reactief werkt: edge-AI die elke trede ziet voordat hij faalt.</p>
+      </div>
+      <div class="feature">
+        <div class="num">04 · Lancering</div>
+        <h3>Gelanceerd met NS</h3>
+        <p>Onze eerste uitrol loopt samen met NS Stations, getraind en gevalideerd op echte Nederlandse perrons en stationsroltrappen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">Het team</div>
+    <h2 class="section-title">Mensen die u rechtstreeks spreekt.</h2>
+    <div class="grid-3">
+      <div class="feature"><div class="team-photo"><img src="images/team/willem.jpeg" alt="Willem van der Heijden" loading="lazy" /><a class="team-link" href="#contact-willem" aria-label="Contactgegevens van Willem van der Heijden" style="font-size: 10px; height: 285px; opacity: 0"></a></div><div class="role-tag">Verkoop</div><h3>Willem van der Heijden</h3><p>Eerste aanspreekpunt voor operators en pilots.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/gertjan.jpeg" alt="Gertjan van den Bogaert" loading="lazy" /><a class="team-link" href="#contact-gertjan" aria-label="Contactgegevens van Gertjan van den Bogaert"></a></div><div class="role-tag">Planning</div><h3>Gertjan van den Bogaert</h3><p>Installatie-inschatting en uitrol over uw netwerk.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/daniel.jpeg" alt="Daniël Telgen" loading="lazy" /><a class="team-link" href="#contact-daniel" aria-label="Contactgegevens van Daniël Telgen"></a></div><div class="role-tag">Techniek</div><h3>Daniël Telgen</h3><p>Sensor, edge-AI en integratie met uw systemen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEITEN -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-eyebrow">In het kort</div>
+    <h2 class="section-title">Stepguard B.V.</h2>
+    <div class="factrow">
+      <div class="stat"><div class="v">2024</div><div class="l">Cboost spin-off</div></div>
+      <div class="stat"><div class="v">Cromvoirt</div><div class="l">Gevestigd in NL</div></div>
+      <div class="stat"><div class="v">Benelux</div><div class="l">Pilots bij de NS</div></div>
+      <div class="stat"><div class="v">EU</div><div class="l">Data-hosting &amp; AI Act</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WAAROM STEPGUARD -->
+<section class="section" id="waarom">
+  <div class="wrap">
+    <div class="section-eyebrow">Waarom Stepguard</div>
+    <h2 class="section-title">Vier redenen om van reactief naar voorspellend te gaan.</h2>
+    <div class="benefit-grid">
+      <a class="benefit" href="#besparing">
+        <div class="bn">01</div>
+        <h4>Kostenbesparing</h4>
+        <p>Plan onderhoud vooraf en vermijd spoedreparaties tot €80.000. Reken uw eigen besparing door.</p>
+        <span class="bl">Naar de besparing →</span>
+      </a>
+      <a class="benefit" href="Sustainability.html#social">
+        <div class="bn">02</div>
+        <h4>Veiligheid</h4>
+        <p>Zie slijtage weken voordat een trede faalt. Bescherm passagiers die het meest afhankelijk zijn.</p>
+        <span class="bl">Naar duurzaamheid →</span>
+      </a>
+      <a class="benefit" href="Sustainability.html#economic">
+        <div class="bn">03</div>
+        <h4>Beschikbaarheid</h4>
+        <p>Geen onverwachte stilstand. Verander noodoproepen in geplande dagdienst-ingrepen.</p>
+        <span class="bl">Naar duurzaamheid →</span>
+      </a>
+      <a class="benefit" href="Sustainability.html#ecological">
+        <div class="bn">04</div>
+        <h4>Lifecycle-verlenging</h4>
+        <p>Verleng de levensduur van treden, verminder afval en CO₂: 222 kg per niet-vervangen trede.</p>
+        <span class="bl">Naar duurzaamheid →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BOEK EEN DEMO -->
+<section class="cta-band">
+  <div class="wrap">
+    <h3>Klaar om te zien wat uw roltrappen u vertellen?</h3>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary btn-arrow">Boek een demo van 20 min&nbsp;</a>
+      <a href="Product.html" class="btn btn-ghost">Bekijk het product</a>
+    </div>
+  </div>
+</section>
+
+<!-- KLANTQUOTE -->
+<section class="section" id="quote">
+  <div class="wrap">
+    <div class="section-eyebrow">Van de eerste partner</div>
+    <h2 class="section-title" style="margin-bottom:40px;">Onderhoud plannen in plaats van brandjes blussen.</h2>
+    <div class="quote-card">
+      <div class="quote-photo">
+        <img src="images/team/jeroen.jpeg" alt="Jeroen Lommers, Asset Manager NS Stations" loading="lazy" />
+      </div>
+      <div class="quote-body">
+        <div class="mark">&ldquo;</div>
+        <blockquote>Stepguard laat ons onderhoud plannen in plaats van brandjes blussen. We zien slijtage aankomen, en dat verandert hoe we onze stations runnen.</blockquote>
+        <div class="by">
+          <div>
+            <div class="nm">Jeroen Lommers</div>
+            <div class="ti">Asset Manager · NS Stations</div>
+          </div>
+          <div class="quote-logo">NS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BESPARING -->
+<section class="closer is-centered" id="besparing" style="border-width: 1px; padding: 60px 48px; background-position: right center; text-align: center">
+  <div>
+    <div class="section-eyebrow" style="margin-bottom:14px;">Besparing</div>
+    <h2>Reken de besparing door op uw eigen cijfers.</h2>
+    <p>Minder spoedreparaties, minder onverwachte stilstand en treden die langer meegaan. Onze interactieve calculator zet uw vlootgegevens om in een jaarlijkse besparing. Schuif de waarden naar uw eigen situatie.</p>
+    <div style="margin-top:24px;"><a href="index.html#roi-calc" class="btn btn-primary btn-arrow">Open de besparingscalculator&nbsp;</a></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v">tot 70%</div><div class="l">Minder uitval</div></div>
+    <div class="stat"><div class="v">−50%</div><div class="l">Ongeplande trede-vervanging</div></div>
+    <div class="stat"><div class="v">€ 80k</div><div class="l">Vermeden spoedreparatie</div></div>
+    <div class="stat"><div class="v">222 kg</div><div class="l">CO₂ per bespaarde trede</div></div>
+  </div>
+</section>
+
+<!-- OVER STEPGUARD PRODUCT -->
+<section class="section" id="product-intro">
+  <div class="wrap">
+    <div class="over-grid">
+      <div>
+        <div class="section-eyebrow">Over het product</div>
+        <h2 class="section-title">Hoe Stepguard werkt: van sensor tot platform.</h2>
+        <p class="section-lede">Eén verzegelde AI-vision sensorbox onder de roltrap, gekoppeld aan een meertalig asset-platform. Hij inspecteert elke trede, scoort de melding en stuurt die binnen een seconde door, zonder de roltrap zelf aan te passen.</p>
+        <div class="hero-ctas" style="margin-top:30px">
+          <a href="Product.html" class="btn btn-primary btn-arrow">Bekijk het product&nbsp;</a>
+        </div>
+      </div>
+      <div class="over-stats">
+        <div class="over-stat"><div class="v">&lt; 1 s</div><div class="l">Van beeld tot melding</div></div>
+        <div class="over-stat"><div class="v">&lt; 2 u</div><div class="l">Montage per roltrap</div></div>
+        <div class="over-stat"><div class="v">IP65</div><div class="l">Verzegelde sensorunit</div></div>
+        <div class="over-stat"><div class="v">4</div><div class="l">Alarmniveaus</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="cta" id="contact">
+  <div class="cta-grid">
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:18px;">Praat met ons</div>
+      <h2>Laten we kennismaken.</h2>
+      <p>Plan een korte demo of een installatie-inschatting. Stuur direct een bericht naar de juiste persoon, of vul het formulier in. We reageren binnen twee werkdagen, in het Nederlands, Engels of Duits.</p>
+      <div class="people">
+        <div class="person" id="contact-willem">
+          <div class="avatar" aria-hidden="true"><img src="images/team/willem.jpeg" alt="" loading="lazy" /></div>
+          <div class="info">
+            <span class="role">Verkoop</span>
+            <span class="name">Willem van der Heijden</span>
+            <a class="email" href="mailto:willem@stepguard.nl">willem@stepguard.nl</a>
+          </div>
+          <a class="arrow-btn" href="mailto:willem@stepguard.nl" aria-label="Mail Willem">→</a>
+        </div>
+        <div class="person" id="contact-gertjan">
+          <div class="avatar" aria-hidden="true"><img src="images/team/gertjan.jpeg" alt="" loading="lazy" /></div>
+          <div class="info">
+            <span class="role">Planning</span>
+            <span class="name">Gertjan van den Bogaert</span>
+            <a class="email" href="mailto:gertjan@stepguard.nl">gertjan@stepguard.nl</a>
+          </div>
+          <a class="arrow-btn" href="mailto:gertjan@stepguard.nl" aria-label="Mail Gertjan">→</a>
+        </div>
+        <div class="person" id="contact-daniel">
+          <div class="avatar" aria-hidden="true"><img src="images/team/daniel.jpeg" alt="" loading="lazy" /></div>
+          <div class="info">
+            <span class="role">Techniek</span>
+            <span class="name">Daniël Telgen</span>
+            <a class="email" href="mailto:daniel@stepguard.nl">daniel@stepguard.nl</a>
+          </div>
+          <a class="arrow-btn" href="mailto:daniel@stepguard.nl" aria-label="Mail Daniël">→</a>
+        </div>
+      </div>
+      <div class="address-block">
+        <div>
+          <div class="lbl">Adres</div>
+          <div class="val">Loverensestraat 31<br/>5266&nbsp;AN Cromvoirt<br/>Nederland</div>
+        </div>
+        <div>
+          <div class="lbl">KvK</div>
+          <div class="val mono">42054745</div>
+        </div>
+        <div>
+          <div class="lbl">Bedrijf</div>
+          <div class="val">Stepguard B.V.</div>
+        </div>
+      </div>
+    </div>
+    <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Bedankt, we nemen contact op'; this.querySelector('button').disabled=true;">
+      <div class="row2">
+        <input type="text" placeholder="Voornaam" required />
+        <input type="text" placeholder="Operator / bedrijf" required />
+      </div>
+      <input type="email" placeholder="Zakelijk e-mailadres" required />
+      <input type="text" placeholder="Netwerkgrootte, ca. aantal roltrappen" />
+      <button class="btn btn-primary btn-arrow" type="submit">Demo aanvragen&nbsp;</button>
+      <div class="hint">Wij reageren in het Nederlands, Engels of Duits. Uw keuze.</div>
+    </form>
+  </div>
+</section>
+
+<footer class="foot">
+  <div>© 2026 Stepguard B.V. · Cboost spin-off</div>
+  <div>Voorspellend toezicht · sensor · edge-AI · asset-platform</div>
+</footer>
+
+<script src="arrange.js"></script>
+</body>
+</html>
