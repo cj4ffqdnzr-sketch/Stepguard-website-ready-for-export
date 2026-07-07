@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stepguard · WordPress (Twenty Twenty-Four) landing page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<!--
+  ============================================================================
+  HOW TO USE THIS FILE IN WORDPRESS (theme: Twenty Twenty-Four, v1.5)
+  ============================================================================
+  1. This is the CONTENT of a WordPress Page, written as Gutenberg block
+     markup (the same "wp:*" block-comment format WordPress itself saves).
+  2. In WP admin: Pages -> Add New -> Options (⋮) -> Code editor, then paste
+     everything between WP-CONTENT-START and WP-CONTENT-END below (do not
+     include this comment or the surrounding html/head/body tags).
+  3. This page is a simple hub/landing page: a short hero plus four cards
+     linking out to the main site pages (index.html / Product.html /
+     Sustainability.html / Over-ons.html). Upload those as WP Pages too and
+     swap the hrefs below for their resulting WP permalinks.
+  4. It carries its own header/footer, styled to match Twenty Twenty-Four's
+     default spacing so it drops into the theme cleanly. If you don't want
+     the theme's default site header/footer template parts to also show,
+     set this Page's template to Twenty Twenty-Four's blank template
+     (Page Attributes -> Template).
+  5. Everything here is a single Custom HTML block, so all styling and the
+     scroll-reveal script travel with the content verbatim.
+  ============================================================================
+-->
+<!-- WP-CONTENT-START -->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"0","margin":{"top":"0"}}},"layout":{"type":"default"}} -->
+<main class="wp-block-group" style="margin-top:0">
+
+<!-- wp:html -->
+<style id="sg-landing-tokens">
+  :root{
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f6f6f4;
+    --line: #e6e6e3;
+    --line-strong: #cfcfca;
+    --text: #15202e;
+    --muted: #677687;
+    --dim: #9aa6b2;
+    --steel: #3b4654;
+    --accent: #e0521f;
+    --accent-2: #cf4a1c;
+    --maxw: 1180px;
+    --pad: clamp(20px, 4vw, 56px);
+    --display: "Space Grotesk", ui-sans-serif, system-ui;
+    --body: "Manrope", ui-sans-serif, system-ui;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  #sg-landing{ background: var(--bg); color: var(--text); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+  #sg-landing *{ box-sizing: border-box; }
+  #sg-landing a{ color: inherit; text-decoration: none; }
+  #sg-landing a:hover{ color: var(--accent-2); }
+  #sg-landing img{ max-width:100%; display:block; }
+  #sg-landing .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); position: relative; z-index: 1; }
+
+  #sg-landing .bg-grid{
+    position:absolute; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center top, rgba(0,0,0,1), rgba(0,0,0,.35) 55%, transparent 85%);
+    opacity: .5;
+  }
+
+  /* ---------- Nav ---------- */
+  #sg-landing nav.top{
+    position: relative; z-index: 2;
+    border-bottom: 1px solid var(--line);
+  }
+  #sg-landing .nav-inner{
+    max-width: var(--maxw); margin: 0 auto; padding: 18px var(--pad);
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap: wrap;
+  }
+  #sg-landing .brand{ display:flex; align-items:center; gap:10px; }
+  #sg-landing .brand-mark{ width:30px; height:30px; }
+  #sg-landing .brand-mark svg{ width:100%; height:100%; display:block; }
+  #sg-landing .brand-name{ font-family: var(--display); font-weight:600; font-size:17px; letter-spacing:-.02em; color:#8c949e; }
+  #sg-landing .brand-name b{ color: var(--accent); }
+  #sg-landing .nav-links{ display:flex; gap:26px; align-items:center; }
+  #sg-landing .nav-links a{ font-family: var(--display); font-size:14px; font-weight:500; color:var(--steel); }
+  @media(max-width:680px){ #sg-landing .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  #sg-landing .hero{ position:relative; padding: 88px 0 56px; }
+  #sg-landing .eyebrow{
+    font-family: var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase;
+    color: var(--accent-2);
+  }
+  #sg-landing h1.title{
+    font-family: var(--display); font-weight:600;
+    font-size: clamp(36px, 5vw, 58px); letter-spacing:-.03em; line-height:1.06;
+    margin: 18px 0 20px; max-width: 760px; text-wrap: balance;
+  }
+  #sg-landing h1.title em{ font-style:normal; color: var(--accent-2); }
+  #sg-landing .lede{ font-size: clamp(16px, 1.4vw, 18px); color: var(--steel); line-height:1.65; max-width: 640px; }
+  #sg-landing .hero-ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap: wrap; }
+  #sg-landing .btn{
+    font-family: var(--display); font-weight:600; font-size:14px;
+    padding: 13px 24px; border-radius: 10px; display:inline-flex; align-items:center; gap:8px;
+    transition: transform .15s, background .15s, border-color .15s;
+  }
+  #sg-landing .btn.primary{ background: var(--accent); color:#fff; }
+  #sg-landing .btn.primary:hover{ background: var(--accent-2); color:#fff; transform: translateY(-1px); }
+  #sg-landing .brand-name{ color: var(--word-grey, #8c949e); }
+  #sg-landing .btn.ghost{ border:1px solid var(--line-strong); color: var(--text); }
+  #sg-landing .btn.ghost:hover{ border-color: var(--accent); color: var(--accent-2); transform: translateY(-1px); }
+
+  /* ---------- Card grid ---------- */
+  #sg-landing .grid-section{ padding: 24px 0 96px; }
+  #sg-landing .grid-head{ margin-bottom: 32px; }
+  #sg-landing .grid-head .kicker{ font-family: var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color: var(--dim); }
+  #sg-landing .grid-head h2{ font-family: var(--display); font-weight:600; font-size: clamp(22px,2.4vw,28px); letter-spacing:-.02em; margin: 10px 0 0; }
+  #sg-landing .cards{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
+  @media(max-width:980px){ #sg-landing .cards{ grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:560px){ #sg-landing .cards{ grid-template-columns: 1fr; } }
+  #sg-landing .card{
+    display:flex; flex-direction:column; gap:14px;
+    padding: 28px 24px; border:1px solid var(--line); border-radius:16px;
+    background: linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+    opacity:0; transform: translateY(14px); transition: opacity .5s, transform .5s, border-color .2s, background .2s;
+  }
+  #sg-landing .card.in{ opacity:1; transform:none; }
+  #sg-landing .card:hover{ border-color: var(--line-strong); background: rgba(224,82,31,.06); }
+  #sg-landing .card .num{ font-family: var(--mono); font-size:12px; color: var(--accent-2); letter-spacing:.1em; }
+  #sg-landing .card h3{ font-family: var(--display); font-weight:600; font-size:19px; letter-spacing:-.01em; margin:0; }
+  #sg-landing .card p{ font-size:14px; color: var(--muted); line-height:1.6; margin:0; flex:1; }
+  #sg-landing .card .go{ font-family: var(--mono); font-size:12px; letter-spacing:.08em; color: var(--steel); display:inline-flex; align-items:center; gap:6px; }
+  #sg-landing .card:hover .go{ color: var(--accent-2); }
+
+  /* ---------- Footer ---------- */
+  #sg-landing footer{ border-top:1px solid var(--line); padding: 32px 0; }
+  #sg-landing .foot-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  #sg-landing .foot-inner .brand-name{ font-size:14px; }
+  #sg-landing .foot-links{ display:flex; gap:20px; flex-wrap:wrap; }
+  #sg-landing .foot-links a{ font-family: var(--mono); font-size:12px; letter-spacing:.06em; color: var(--muted); }
+
+  #sg-landing .reveal{ opacity:0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+  #sg-landing .reveal.in{ opacity:1; transform:none; }
+</style>
+
+<div id="sg-landing">
+  <div class="bg-grid"></div>
+
+  <nav class="top">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="Stepguard home">
+        <span class="brand-mark"><svg viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span>
+        <span class="brand-name">step<b>guard</b></span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Platform</a>
+        <a href="Product.html">Product</a>
+        <a href="Sustainability.html">Duurzaamheid</a>
+        <a href="Over-ons.html">Over ons</a>
+        <a href="Contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Sensor-monitoring voor roltrappen &amp; liften</div>
+      <h1 class="title">Storingen zien <em>voordat</em> ze gebeuren</h1>
+      <p class="lede">Stepguard bewaakt trilling, temperatuur en slijtage van roltrappen in realtime, zodat beheerders onderhoud kunnen plannen in plaats van reageren op uitval.</p>
+      <div class="hero-ctas">
+        <a href="index.html" class="btn primary">Bekijk het platform →</a>
+        <a href="Contact.html" class="btn ghost">Plan een demo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-section">
+    <div class="wrap">
+      <div class="grid-head reveal">
+        <div class="kicker">Verkennen</div>
+        <h2>Meer over Stepguard</h2>
+      </div>
+      <div class="cards">
+        <a href="index.html" class="card reveal">
+          <div class="num">01</div>
+          <h3>Platform</h3>
+          <p>Het volledige overzicht: hoe Stepguard escalators bewaakt, wat het oplevert en hoe het werkt.</p>
+          <span class="go">Naar de homepage →</span>
+        </a>
+        <a href="Product.html" class="card reveal">
+          <div class="num">02</div>
+          <h3>Product</h3>
+          <p>De sensoren, dataverwerking en dashboards achter Stepguard, in detail.</p>
+          <span class="go">Bekijk het product →</span>
+        </a>
+        <a href="Sustainability.html" class="card reveal">
+          <div class="num">03</div>
+          <h3>Duurzaamheid</h3>
+          <p>Onze bijdrage aan de SDG-doelen: minder materiaalverspilling, langere levensduur, minder uitstoot.</p>
+          <span class="go">Lees over impact →</span>
+        </a>
+        <a href="Over-ons.html" class="card reveal">
+          <div class="num">04</div>
+          <h3>Over ons</h3>
+          <p>Het team achter Stepguard en waarom we roltrappen slimmer willen maken.</p>
+          <span class="go">Maak kennis →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <span class="brand-name">step<b>guard</b></span>
+      <div class="foot-links">
+        <a href="index.html">Platform</a>
+        <a href="Product.html">Product</a>
+        <a href="Sustainability.html">Duurzaamheid</a>
+        <a href="Over-ons.html">Over ons</a>
+        <a href="Contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: .1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('#sg-landing .reveal').forEach(function(el){ io.observe(el); });
+  })();
+</script>
+<!-- /wp:html -->
+
+</main>
+<!-- /wp:group -->
+<!-- WP-CONTENT-END -->
+</body>
+</html>
