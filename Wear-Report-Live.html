@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stepguard · Live slijtagedetectie &amp; rapport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#e0521f;--accent-2:#cf4a1c;--bg:#0c1320;--panel:#131b2b;--line:rgba(255,255,255,.1);--muted:#9fb0c2;--warn:#F5C24D;--crit:#d63f2b;--ok:#1b8f4a}
+html,body{background:var(--bg);color:#fff;font-family:"Space Grotesk",ui-sans-serif,system-ui;min-height:100vh}
+body{display:flex;align-items:center;justify-content:center;padding:32px 16px}
+a{color:var(--accent)}a:hover{color:var(--accent-2)}
+#app{width:100%;max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.cam-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.view{display:none}
+.view.active{display:block}
+
+/* ---- Phase A: escalator visualisatie ---- */
+#sg-viz{ font-family:"Space Grotesk",ui-sans-serif,system-ui; --line2:#e6e6e3; --line-strong:#cfcfca; padding:14px; }
+#sg-viz .hero-stage{ position:relative; width:100%; aspect-ratio:4/5; border:1px solid #1c2740; background:radial-gradient(60% 60% at 50% 40%, rgba(224,82,31,.14), transparent 70%), linear-gradient(180deg,#0e1524,#0a0f1a 80%); border-radius:16px; overflow:hidden; }
+#sg-viz .hero-stage::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:32px 32px; mask-image:radial-gradient(ellipse at 50% 50%,#000,transparent 75%); -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000,transparent 75%); }
+#sg-viz .label{ position:absolute; top:14px; left:14px; font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.18em; color:var(--accent-2); text-transform:uppercase; display:flex; align-items:center; gap:7px; }
+#sg-viz .label::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 8px var(--accent-2); }
+#sg-viz .label-r{ position:absolute; top:14px; right:14px; font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; }
+#sg-viz .stage-svg{ position:absolute; inset:0; width:100%; height:100%; }
+#sg-viz .hud{ position:absolute; bottom:14px; left:14px; right:14px; background:rgba(8,14,22,.8); border:1px solid var(--line); backdrop-filter:blur(8px); border-radius:12px; padding:12px 14px; display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; }
+#sg-viz .hud-title{ font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.16em; color:#9fb0c2; text-transform:uppercase; }
+#sg-viz .hud-status{ font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:14px; margin-top:4px; color:#fff; }
+#sg-viz .hud-status .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px; background:#1b8f4a; box-shadow:0 0 10px #1b8f4a; animation:sg-blink 1.4s infinite; vertical-align:middle; transition:background .4s,box-shadow .4s; }
+#sg-viz .hud[data-level="2"] .dot{ background:var(--crit); box-shadow:0 0 10px var(--crit); }
+@keyframes sg-blink{ 50%{opacity:.35} }
+#sg-viz .levels{ display:flex; gap:5px; }
+#sg-viz .levels .lv{ width:22px; height:22px; border-radius:6px; border:1px solid rgba(255,255,255,.25); display:grid; place-items:center; font-family:"JetBrains Mono",monospace; font-size:10px; color:#9fb0c2; }
+#sg-viz .levels .lv.on{ color:#0a0a0a; }
+#sg-viz .levels .lv.l1.on{ background:#1b8f4a; border-color:#1b8f4a; }
+#sg-viz .levels .lv.l2.on{ background:var(--crit); border-color:var(--crit); color:#fff; }
+#sg-viz .wear-ring{ animation:sg-wearPulse 1.6s ease-in-out infinite; }
+@keyframes sg-wearPulse{ 0%,100%{stroke-opacity:.95} 50%{stroke-opacity:.2} }
+#sg-viz .scan-tick{ animation:sg-tickFade .9s ease forwards; }
+@keyframes sg-tickFade{ 0%{opacity:0} 15%{opacity:1} 100%{opacity:0} }
+.vizfoot{padding:16px 18px 18px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);text-align:center}
+
+/* ---- Phase B/C: photo report (from Wear-Report) ---- */
+.stage{position:relative;aspect-ratio:4/5;background:#000;overflow:hidden}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:center;transition:transform 1.4s cubic-bezier(.65,0,.2,1),opacity .6s}
+.step-active .stage img{transform:scale(1.55) translate(2%,-6%)}
+.step-detail .stage img{transform:scale(2.3) translate(-6%,4%)}
+.overlay-svg{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease .3s}
+.step-detail .overlay-svg{opacity:1}
+.mark-line{stroke:var(--crit);stroke-width:2.2;fill:none;stroke-dasharray:4 260;filter:drop-shadow(0 0 4px rgba(214,63,43,.8))}
+.step-detail .mark-line{animation:draw 1s ease forwards}
+.mark-line:nth-of-type(2){animation-delay:.15s}
+.mark-line:nth-of-type(3){animation-delay:.3s}
+@keyframes draw{from{stroke-dasharray:0 400}to{stroke-dasharray:400 0}}
+.mark-dot{fill:var(--crit);opacity:0;transition:opacity .3s}
+.step-detail .mark-dot{opacity:1;transition-delay:.5s}
+.tag{position:absolute;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.06em;color:#fff;background:rgba(214,63,43,.92);padding:4px 8px;border-radius:5px;white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+.step-detail .tag{opacity:1;transform:none}
+.tag1{transition-delay:.6s}.tag2{transition-delay:.75s}.tag3{transition-delay:.9s}
+.badge-eyebrow{position:absolute;top:14px;left:14px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--warn);display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .4s}
+.step-active .badge-eyebrow,.step-detail .badge-eyebrow{opacity:1}
+.badge-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--warn);box-shadow:0 0 8px var(--warn);animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.3}}
+.hint{position:absolute;bottom:14px;left:14px;right:14px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;opacity:.85}
+.panel{padding:18px 20px 20px}
+.readout{display:grid;gap:10px;margin-bottom:16px;opacity:0;transition:opacity .4s}
+.readout.show{opacity:1}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none;padding-bottom:0}
+.row .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.row .v{font-size:14px;font-weight:600;text-align:right}
+.sev{display:inline-flex;align-items:center;gap:6px;color:var(--crit)}
+.sev::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--crit);box-shadow:0 0 8px var(--crit)}
+.btn{width:100%;border:none;border-radius:12px;padding:15px;font-family:"Space Grotesk",sans-serif;font-weight:650;font-size:15px;cursor:pointer;transition:transform .15s,opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn-send{background:var(--accent);color:#fff}
+.btn-send:hover{background:var(--accent-2)}
+.btn[hidden]{display:none}
+.sending{display:flex;align-items:center;justify-content:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:15px}
+.spinner{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.2);border-top-color:var(--accent);animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#confirm{padding:34px 26px 30px;text-align:center}
+.check{width:56px;height:56px;border-radius:50%;background:rgba(27,143,74,.15);border:1.5px solid var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.check svg{width:26px;height:26px}
+#confirm h2{font-size:19px;margin-bottom:8px}
+#confirm p{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:22px}
+.ticket{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:left;display:grid;gap:9px;margin-bottom:20px}
+.ticket .row .v{font-family:"JetBrains Mono",monospace;font-size:12.5px;font-weight:500}
+.btn-secondary{background:transparent;border:1px solid var(--line);color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span>Stepguard · Inspectie</div>
+    <div class="cam-tag">Cam #SG-04-A</div>
+  </div>
+
+  <div id="vizView" class="view active">
+    <div id="sg-viz">
+      <div class="hero-stage">
+        <div class="label">Live · escalator-inspectie</div>
+        <div class="label-r">Cam #SG-04-A</div>
+        <svg class="stage-svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="sgStepGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#243248"/><stop offset="1" stop-color="#0f1728"/></linearGradient>
+            <linearGradient id="sgStepEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4a60"/><stop offset="1" stop-color="#1a2433"/></linearGradient>
+            <linearGradient id="sgLaserGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d63f2b" stop-opacity="0"/><stop offset=".4" stop-color="#d63f2b" stop-opacity=".8"/><stop offset="1" stop-color="#d63f2b" stop-opacity="0"/></linearGradient>
+            <radialGradient id="sgLens" cx=".4" cy=".4" r=".7"><stop offset="0" stop-color="#7BD7FF"/><stop offset=".4" stop-color="#0a0a0a"/><stop offset="1" stop-color="#03263d"/></radialGradient>
+            <filter id="sgLaserGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          </defs>
+          <line x1="0" y1="540" x2="600" y2="540" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="0" y1="60" x2="600" y2="60" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+          <line x1="50" y1="500" x2="500" y2="120" stroke="rgba(224,82,31,.25)" stroke-width="1.5" stroke-dasharray="2 6"/>
+          <g id="sgSteps" transform="translate(40, 80)"></g>
+          <g transform="translate(50, 470)">
+            <rect x="-30" y="-30" width="90" height="46" rx="6" fill="#10182a" stroke="#3a4a60" stroke-width="1.2"/>
+            <circle cx="38" cy="0" r="13" fill="url(#sgLens)"/>
+            <circle cx="38" cy="0" r="13" fill="none" stroke="#0a3a5e" stroke-width="2"/>
+            <circle cx="36" cy="-2" r="3.5" fill="#7BD7FF" opacity=".8"/>
+            <circle cx="-18" cy="8" r="2" fill="#1b8f4a"/>
+            <circle cx="-10" cy="8" r="2" fill="#0a0a0a"/>
+          </g>
+          <g id="sgLaser" opacity=".95">
+            <path id="sgLaserBeam" d="M 88 470 L 320 250" stroke="url(#sgLaserGrad)" stroke-width="1.4" filter="url(#sgLaserGlow)"/>
+            <path d="M 88 470 L 320 250" stroke="#d63f2b" stroke-width=".6" opacity=".9"/>
+            <circle id="sgLaserDot" cx="320" cy="250" r="3" fill="#d63f2b" filter="url(#sgLaserGlow)"/>
+            <circle cx="320" cy="250" r="1.5" fill="#fff"/>
+          </g>
+          <g id="sgScanTicks" font-family="JetBrains Mono" font-size="8" fill="#fff" opacity=".8"></g>
+        </svg>
+        <div class="hud" id="sgHud">
+          <div>
+            <div class="hud-title" id="sgHudTitle">Riggel-integriteitsscan · Niveau 1</div>
+            <div class="hud-status"><span class="dot"></span><span id="sgHudStatus">Niveau 1, Slijtage binnen marge</span></div>
+          </div>
+          <div class="levels" id="sgHudLevels">
+            <div class="lv l1 on" data-lv="1">1</div>
+            <div class="lv l2" data-lv="2">2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vizfoot">Scan actief · zoekt naar riggel-slijtage over alle treden</div>
+  </div>
+
+  <div id="stageView" class="view">
+    <div class="stage" id="stage">
+      <img src="images/escalator-overview.jpeg" alt="Roltrap-onderdeel">
+      <div class="badge-eyebrow" id="eyebrow"><span class="dot"></span>Detectie bevestigd · beeld wordt vergroot</div>
+      <svg class="overlay-svg" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+        <path class="mark-line" d="M 150 190 C 175 175, 210 178, 225 165"/>
+        <path class="mark-line" d="M 100 260 L 260 230"/>
+        <circle class="mark-dot" cx="180" cy="182" r="4"/>
+        <circle class="mark-dot" cx="180" cy="245" r="4"/>
+      </svg>
+      <div class="tag tag1" style="left:20%;top:32%">Scheur in kamplaat</div>
+      <div class="tag tag2" style="left:8%;top:48%">Slijtage riggel-rand</div>
+      <div class="tag tag3" style="left:14%;top:64%">Verf afgesleten · corrosierisico</div>
+      <div class="hint" id="hint">Beeldmateriaal wordt uitvergroot voor analyse…</div>
+    </div>
+    <div class="panel">
+      <div class="readout" id="readout">
+        <div class="row"><span class="k">Locatie</span><span class="v">Utrecht Centraal · Perron 5/6 · Roltrap SG-04</span></div>
+        <div class="row"><span class="k">Onderdeel</span><span class="v">Kamplaat / riggel-rand</span></div>
+        <div class="row"><span class="k">Bevinding</span><span class="v">Scheur + verfafslijting, blootgesteld metaal</span></div>
+        <div class="row"><span class="k">Prioriteit</span><span class="v sev">Hoog</span></div>
+      </div>
+      <button class="btn btn-send" id="sendBtn" hidden>Meld naar meldkamer</button>
+      <div class="sending" id="sendingRow" hidden><span class="spinner"></span>Melding wordt verzonden…</div>
+    </div>
+  </div>
+
+  <div id="confirm" class="view">
+    <div class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#1b8f4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2>Melding verzonden</h2>
+    <p>De meldkamer heeft de bevinding ontvangen. Er wordt automatisch een werkorder en monteur voorgesteld.</p>
+    <div class="ticket">
+      <div class="row"><span class="k">Ticket</span><span class="v">SG-2231-A</span></div>
+      <div class="row"><span class="k">Tijdstip</span><span class="v" id="tsOut">—</span></div>
+      <div class="row"><span class="k">Status</span><span class="v sev">Hoog · in behandeling</span></div>
+      <div class="row"><span class="k">Verwachte respons</span><span class="v">&lt; 2 uur</span></div>
+    </div>
+    <button class="btn btn-secondary" id="resetBtn">Terug naar live-scan</button>
+  </div>
+</div>
+<script>
+/* ---------- Phase A: escalator visualisatie (auto-detect) ---------- */
+var Viz = (function(){
+  var SVGNS='http://www.w3.org/2000/svg';
+  var stepsG=document.getElementById('sgSteps'),beam=document.getElementById('sgLaserBeam'),hud=document.getElementById('sgHud'),
+      title=document.getElementById('sgHudTitle'),status=document.getElementById('sgHudStatus'),levels=document.getElementById('sgHudLevels'),
+      ticksG=document.getElementById('sgScanTicks');
+  var beamCore=beam.nextElementSibling,dot=document.getElementById('sgLaserDot'),dotCore=dot?dot.nextElementSibling:null;
+  var STR={1:['Riggel-integriteitsscan · Niveau 1','Niveau 1, Slijtage binnen marge · alle riggels gemeten'],2:['Riggel-integriteitsscan · Niveau 2','Niveau 2, Riggel-slijtage gedetecteerd · trede 09']};
+  var SLOTS=13,PX=38,BASE_X=10,BASE_Y=380,PY=-34,W=46,H=12,GX=40,GY=80,PITCH_MS=2200,OX=88,OY=470,WORN_NO=9;
+  var slots=[],ids=[],raf=null,running=false,onDetect=null;
+  function mk(tag,attrs){var n=document.createElementNS(SVGNS,tag);for(var k in attrs)n.setAttribute(k,attrs[k]);return n;}
+  function wrapNo(n){return ((n-1)%14+14)%14+1;}
+  function pad2(n){return String(n).padStart(2,'0');}
+  function sevColor(w){return w>=85?'#d63f2b':w>=30?'#F5C24D':'#1b8f4a';}
+  function build(){
+    stepsG.innerHTML='';slots=[];
+    for(var j=0;j<SLOTS;j++){
+      var g=mk('g',{});
+      var plate=mk('path',{d:'M 0 0 L '+W+' 0 L '+W+' '+H+' L 0 '+H+' Z',fill:'url(#sgStepGrad)',stroke:'url(#sgStepEdge)','stroke-width':'.8'});
+      var riser=mk('path',{d:'M '+W+' 0 L '+(W+PX*0.18)+' -12',stroke:'rgba(123,215,255,.18)','stroke-width':'1'});
+      var label=mk('text',{x:2,y:-2,'font-family':'JetBrains Mono','font-size':'6',fill:'rgba(123,215,255,.4)','letter-spacing':'0.5'});
+      var wear=mk('rect',{x:14,y:2,width:18,height:7,rx:1,fill:'#F5C24D',opacity:0});
+      var ring=mk('rect',{x:10,y:-2,width:26,height:15,rx:3,fill:'none',stroke:'#F5C24D','stroke-width':'1',opacity:0,'class':'wear-ring'});
+      g.appendChild(plate);g.appendChild(riser);g.appendChild(label);g.appendChild(wear);g.appendChild(ring);
+      stepsG.appendChild(g);
+      slots.push({g:g,label:label,wear:wear,ring:ring,shownNo:null});
+    }
+    ids=[];
+    for(var j2=0;j2<SLOTS;j2++)ids.push({no:wrapNo(11-j2)});
+  }
+  var TOTAL=14,WEAR_SEED=[52,44,57,16,49,41,61,38,88,46,54,18,43,50],wearByNo={},criticalNo=WORN_NO,level=1;
+  function resetState(){
+    wearByNo={};for(var n=1;n<=TOTAL;n++)wearByNo[n]=WEAR_SEED[n-1];
+    criticalNo=WORN_NO;level=1;
+    build();
+    setLevel(1);
+  }
+  function setLevel(lv){
+    level=lv;
+    hud.setAttribute('data-level',String(lv));
+    title.textContent=STR[lv][0];status.textContent=STR[lv][1];
+    levels.querySelectorAll('.lv').forEach(function(el){el.classList.toggle('on',+el.dataset.lv<=lv);});
+  }
+  var flashUntil=0,flashColor='#1b8f4a';
+  function tickFlash(color,txt,x,y){
+    flashUntil=performance.now()+500;flashColor=color;
+    var t=mk('text',{x:x+10,y:y-10,fill:color,'class':'scan-tick','font-family':'JetBrains Mono','font-size':'8'});
+    t.textContent=txt;ticksG.appendChild(t);
+    setTimeout(function(){t.remove();},950);
+    while(ticksG.childNodes.length>4)ticksG.firstChild.remove();
+  }
+  var crossN=0;
+  function onCross(){
+    crossN++;
+    for(var n2=1;n2<=TOTAL;n2++)wearByNo[n2]=Math.min(99,wearByNo[n2]+0.09);
+    var id=ids[2];
+    wearByNo[id.no]=Math.min(99,wearByNo[id.no]+0.6);
+    var w=Math.round(wearByNo[id.no]);
+    var sx=GX+BASE_X+1.5*PX+23,sy=GY+BASE_Y+1.5*PY+4;
+    if(level===1&&crossN>=3){
+      criticalNo=id.no;
+      setLevel(2);tickFlash('#d63f2b','! '+w+'%',sx,sy);
+      running=false;
+      if(onDetect)setTimeout(onDetect,3300);
+      return;
+    }
+    tickFlash(sevColor(w),w+'%',sx,sy);
+  }
+  function render(p,now){
+    for(var j2=0;j2<SLOTS;j2++){
+      var s=j2-1+p,sl=slots[j2],id2=ids[j2];
+      sl.g.setAttribute('transform','translate('+(BASE_X+s*PX).toFixed(2)+', '+(BASE_Y+s*PY).toFixed(2)+')');
+      if(sl.shownNo!==id2.no){sl.shownNo=id2.no;sl.label.textContent=String(id2.no).padStart(2,'0');}
+      var w2=wearByNo[id2.no]||0,isCrit=id2.no===criticalNo;
+      if(isCrit&&level>1){
+        sl.wear.setAttribute('x','12');sl.wear.setAttribute('width','22');
+        sl.wear.setAttribute('fill','#d63f2b');sl.wear.setAttribute('opacity','.9');
+        sl.ring.setAttribute('stroke','#d63f2b');sl.ring.setAttribute('opacity','1');
+        sl.label.setAttribute('fill','#ff6a52');
+      } else {
+        var wpx=6+(w2/100)*20;
+        sl.wear.setAttribute('x',(23-wpx/2).toFixed(1));sl.wear.setAttribute('width',wpx.toFixed(1));
+        sl.wear.setAttribute('fill',sevColor(w2));sl.wear.setAttribute('opacity',(0.14+(w2/100)*0.55).toFixed(2));
+        sl.ring.setAttribute('opacity','0');sl.label.setAttribute('fill',w2>=85?'#d63f2b':'rgba(123,215,255,.4)');
+      }
+    }
+    var stp=p<0.5?1+p:p;
+    var sweep=14*Math.sin(now/260);
+    var tx=GX+BASE_X+stp*PX+23+sweep,ty=GY+BASE_Y+stp*PY+4;
+    var d='M '+OX+' '+OY+' L '+tx.toFixed(1)+' '+ty.toFixed(1);
+    beam.setAttribute('d',d);if(beamCore)beamCore.setAttribute('d',d);
+    var hot=now<flashUntil;
+    if(dot){dot.setAttribute('cx',tx.toFixed(1));dot.setAttribute('cy',ty.toFixed(1));dot.setAttribute('r',hot?'5':'3');dot.setAttribute('fill',hot?flashColor:'#d63f2b');}
+    if(dotCore){dotCore.setAttribute('cx',tx.toFixed(1));dotCore.setAttribute('cy',ty.toFixed(1));}
+  }
+  var p2=0,last=null;
+  function frame(ts){
+    if(!running)return;
+    if(last==null)last=ts;
+    var dt=Math.min(ts-last,64);last=ts;
+    var prev=p2;p2+=dt/PITCH_MS;
+    if(prev<0.5&&p2>=0.5)onCross();
+    if(!running)return;
+    if(p2>=1){p2-=1;ids.pop();var newNo=wrapNo(ids[0].no+1);ids.unshift({no:newNo});}
+    render(p2,ts);
+    raf=requestAnimationFrame(frame);
+  }
+  function start(cb){
+    onDetect=cb;
+    resetState();
+    crossN=0;p2=0;last=null;running=true;
+    render(0,performance.now());
+    raf=requestAnimationFrame(frame);
+  }
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
+  return {start:start,stop:stop};
+})();
+
+/* ---------- Phase B/C: photo report + confirmation ---------- */
+var vizView=document.getElementById('vizView'),stageView=document.getElementById('stageView'),confirmView=document.getElementById('confirm'),
+    stage=document.getElementById('stage'),eyebrow=document.getElementById('eyebrow'),hint=document.getElementById('hint'),
+    readout=document.getElementById('readout'),sendBtn=document.getElementById('sendBtn'),sendingRow=document.getElementById('sendingRow'),
+    resetBtn=document.getElementById('resetBtn'),tsOut=document.getElementById('tsOut');
+
+function showView(v){[vizView,stageView,confirmView].forEach(function(el){el.classList.toggle('active',el===v);});}
+
+function onWearDetected(){
+  showView(stageView);
+  stage.querySelector('img').src='images/comb-wear-detail.jpeg';
+  stage.classList.remove('step-active','step-detail');
+  eyebrow.textContent='Detectie bevestigd · slijtage geanalyseerd';
+  hint.style.display='none';
+  readout.classList.remove('show');sendBtn.hidden=true;sendingRow.hidden=true;
+
+  requestAnimationFrame(function(){
+    stage.classList.add('step-active','step-detail');
+    readout.classList.add('show');
+    sendBtn.hidden=false;
+  });
+  setTimeout(function(){ sendBtn.click(); }, 6400);
+}
+
+sendBtn.addEventListener('click',function(){
+  sendBtn.hidden=true;sendingRow.hidden=false;
+  setTimeout(function(){
+    var now=new Date();
+    tsOut.textContent=now.toLocaleDateString('nl-NL')+' · '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
+    showView(confirmView);
+    setTimeout(resetToScan,4200);
+  },1600);
+});
+
+function resetToScan(){
+  showView(vizView);
+  Viz.start(onWearDetected);
+}
+resetBtn.addEventListener('click',function(){ Viz.stop(); resetToScan(); });
+
+Viz.start(onWearDetected);
+</script>
+</body>
+</html>
