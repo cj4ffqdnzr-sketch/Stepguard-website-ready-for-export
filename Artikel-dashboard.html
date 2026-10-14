@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Stepguard · Dashboard voor beheerders in ontwikkeling</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiI+PHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMjIiIGZpbGw9IiMxNjIwMmMiLz48cGF0aCBkPSJNMzYgMjAgTDYwIDIwIFE2MyAyMCA2NSAyMiBMNjcuNSAyNSBRNjkgMjcgNjkgMzAgTDY5IDUwIFE2OSA2NyA0OS41IDc3LjIgUTQ4IDc4IDQ2LjUgNzcuMiBRMjcgNjcgMjcgNTAgTDI3IDMwIFEyNyAyNyAyOC41IDI1IEwzMSAyMiBRMzMgMjAgMzYgMjAgWiIgZmlsbD0iI2VlZjFmMyIvPjxyZWN0IHg9IjMyIiB5PSI1MyIgd2lkdGg9IjE1IiBoZWlnaHQ9IjciIHJ4PSIyLjUiIGZpbGw9IiMxNjIwMmMiLz48cmVjdCB4PSIzOS41IiB5PSI0NiIgd2lkdGg9IjE1IiBoZWlnaHQ9IjciIHJ4PSIyLjUiIGZpbGw9IiMxNjIwMmMiLz48cmVjdCB4PSI0NyIgeT0iMzkiIHdpZHRoPSIxNSIgaGVpZ2h0PSI3IiByeD0iMi41IiBmaWxsPSIjZTA1MjFmIi8+PC9zdmc+" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#04070c;--bg-2:#070b12;--surface:#0b1119;--surface-2:#0f1722;--line:rgba(255,255,255,.07);--line-strong:rgba(255,255,255,.14);--text:#E8EEF5;--muted:#8493A8;--dim:#5A6776;--steel:#BCC8D6;--accent:#e0521f;--accent-2:#f3936a;--accent-deep:#a3401a;--ok:#38D38A;--warn:#F5C24D;--hot:#FF6A3D;--maxw:1180px;--pad:clamp(20px,4vw,56px);--display:"Space Grotesk",ui-sans-serif,system-ui;--body:"Manrope",ui-sans-serif,system-ui;--mono:"JetBrains Mono",ui-monospace,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-2)}
+  ::selection{background:var(--accent);color:#fff}
+  .bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at center top,rgba(0,0,0,1),rgba(0,0,0,.4) 60%,transparent 90%);opacity:.55}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);position:relative;z-index:1}
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-mark{width:30px;height:30px;display:grid;place-items:center}.brand-mark svg{width:100%;height:100%;display:block}
+  .brand-name{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.02em;color:#8c949e}.brand-name b{color:var(--accent)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{font-family:var(--display);font-size:14px;font-weight:500;color:var(--steel);letter-spacing:-.005em;transition:color .15s}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent-2)}
+  @media(max-width:680px){.nav-links{display:none}}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:13px 22px;border-radius:999px;font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:-.005em;transition:transform .15s,background .15s,box-shadow .15s;cursor:pointer}
+  .btn-primary{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+  .btn-primary:hover{background:var(--accent-2);border-color:var(--accent-2);transform:translateY(-1px);box-shadow:0 10px 26px rgba(224,82,31,.28)}
+  .back{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+  .back:hover{color:var(--accent-2)}
+  .art-head{padding:56px 0 30px;max-width:820px}
+  .kicker{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap;margin:26px 0 18px}
+  .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:6px;background:rgba(224,82,31,.1);border:1px solid rgba(224,82,31,.25);color:var(--accent-2)}
+  .tag.case{background:rgba(56,211,138,.1);border-color:rgba(56,211,138,.3);color:var(--ok)}
+  h1.art-title{font-family:var(--display);font-weight:600;font-size:clamp(32px,4.4vw,54px);letter-spacing:-.03em;line-height:1.07;margin:0 0 18px;text-wrap:balance}
+  .stand{font-size:clamp(16px,1.5vw,19px);color:var(--steel);line-height:1.6;margin:0;text-wrap:pretty}
+  figure.hero-shot{margin:0 0 44px}
+  .shot{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--surface-2) 92%,var(--accent) 8%) 0 14px,var(--surface) 14px 28px);display:block}
+  .shot img:not([src]){display:none}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .shot .hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);pointer-events:none}
+  .hero-shot .shot{aspect-ratio:21/9}
+  figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:10px}
+  article.body{max-width:720px;padding-bottom:20px}
+  article.body p{font-size:16.5px;line-height:1.75;color:var(--steel);margin:0 0 20px;text-wrap:pretty}
+  article.body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.2vw,27px);letter-spacing:-.02em;margin:40px 0 14px}
+  article.body ul{padding-left:20px;margin:0 0 22px}
+  article.body li{font-size:16px;line-height:1.7;color:var(--steel);margin-bottom:8px}
+  blockquote{margin:34px 0;padding:24px 28px;border-left:2px solid var(--accent);background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 7%,transparent),transparent);font-family:var(--display);font-size:19px;line-height:1.5;letter-spacing:-.015em;color:var(--text)}
+  blockquote cite{display:block;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-style:normal}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:36px 0}
+  @media(max-width:640px){.facts{grid-template-columns:1fr}}
+  .facts .stat{background:var(--surface);padding:20px 22px;display:flex;flex-direction:column;gap:4px}
+  .facts .v{font-family:var(--display);font-weight:600;font-size:24px;color:var(--accent-2)}
+  .facts .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:36px 0}
+  @media(max-width:640px){.gallery{grid-template-columns:1fr}}
+  .gallery .shot{aspect-ratio:4/3}
+  .cta{border-top:1px solid var(--line);margin-top:44px;padding:44px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .cta h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.2vw,26px);letter-spacing:-.02em;margin:0}
+  .cta p{color:var(--muted);font-size:14px;margin:8px 0 0}
+  .next{border-top:1px solid var(--line);padding:44px 0}
+  .next-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:20px}
+  .next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.next-grid{grid-template-columns:1fr}}
+  .card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--surface),var(--surface-2));transition:transform .22s,border-color .2s,box-shadow .22s;color:inherit}
+  .card:hover{transform:translateY(-4px);border-color:var(--line-strong);box-shadow:0 18px 44px rgba(0,0,0,.3);color:inherit}
+  .card .shot{aspect-ratio:16/10;border:0;border-radius:0}
+  .card:hover .shot img{transform:scale(1.06)}
+  .shot img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .card-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px}
+  .card h3{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.012em;line-height:1.3;margin:0}
+  .card .when{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  footer.foot{border-top:1px solid var(--line);padding:36px var(--pad);margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;max-width:var(--maxw);margin-left:auto;margin-right:auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+</style>
+
+<script>
+(function bootTheme(){
+  var THEME_VARS = {
+    midnight:{'--bg':'#04070c','--bg-2':'#070b12','--surface':'#0b1119','--surface-2':'#0f1722','--line':'rgba(255,255,255,.07)','--line-strong':'rgba(255,255,255,.14)','--text':'#E8EEF5','--muted':'#8493A8','--dim':'#5A6776','--steel':'#BCC8D6','--accent':'#e0521f','--accent-2':'#f3936a','--accent-deep':'#a3401a','--ok':'#38D38A','--warn':'#F5C24D','--hot':'#FF6A3D'},
+    paper:{'--bg':'#F4F1EC','--bg-2':'#ECE7DE','--surface':'#FFFFFF','--surface-2':'#F8F4EC','--line':'rgba(15,25,40,.08)','--line-strong':'rgba(15,25,40,.18)','--text':'#14181D','--muted':'#5A6776','--dim':'#8A96A3','--steel':'#3A4350','--accent':'#e0521f','--accent-2':'#cf4a1c','--accent-deep':'#a3401a','--ok':'#16A34A','--warn':'#D97706','--hot':'#DC2626'}
+  };
+  var key='paper';
+  try{ key = localStorage.getItem('sg_theme') || key; }catch(_){}
+  var v = THEME_VARS[key] || THEME_VARS.midnight;
+  var root = document.documentElement;
+  for (var k in v) root.style.setProperty(k, v[k]);
+  root.dataset.theme = key;
+})();
+</script>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav class="top">
+  <div class="nav-inner">
+    <a href="Homepage.html" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
+    <div class="nav-links">
+      <a href="https://stepguard.nl/">Home</a>
+      <a href="Product.html">Product</a>
+      <a href="Over-ons.html">Over ons</a>
+      <a href="Contact.html">Contact</a>
+      <a href="Nieuws.html" class="active">Nieuws</a>
+      <a href="Sustainability.html">Duurzaamheid</a>
+    </div>
+    <a href="Contact.html" class="btn btn-primary">Demo aanvragen</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="art-head">
+    <a class="back" href="Nieuws.html">← Alle nieuws</a>
+    <div class="kicker"><span class="tag ">Platform</span><span>In development</span></div>
+    <h1 class="art-title">Dashboard voor beheerders in ontwikkeling</h1>
+    <p class="stand">In development: één scherm dat per vloot laat zien welke roltrappen sneller slijten dan normaal, wat er nu aandacht nodig heeft en wat vroeg ingrijpen oplevert.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <figure class="hero-shot"><span class="shot" style="aspect-ratio:16/9"><video src="images/dashboard.mp4" controls poster="images/dashboard-v2.gif" autoplay muted loop playsinline preload="metadata" aria-label="Stepguard dashboard: Escalator health-overzicht" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;"></video></span><figcaption>Stepguard dashboard · Escalator health (in ontwikkeling)</figcaption></figure>
+  <article class="body"><h2>Escalator health in één oogopslag</h2>
+<p>Het dashboard opent op het vlootoverzicht. Bovenaan staat in één zin wat er speelt: hoeveel roltrappen ongewoon snel slijten, welke als eerste aan de beurt is en binnen hoeveel uur die de slijtagegrens bereikt. Daaronder volgen vier kerngetallen.</p>
+<ul>
+<li><strong>Vlootscore:</strong> de gemiddelde gezondheid van alle treden, met het verloop over de afgelopen weken.</li>
+<li><strong>Snelle slijtage:</strong> roltrappen die de afgelopen 24 uur sneller slijten dan normaal.</li>
+<li><strong>Aandacht nodig:</strong> het aantal roltrappen onder de drempelwaarde, verdeeld in kritiek en binnen een jaar.</li>
+<li><strong>Bespaard door vroeg herstel:</strong> de kosten die vroegtijdig ingrijpen heeft voorkomen ten opzichte van herstel na een storing.</li>
+</ul>
+<h2>Van signaal naar werkorder</h2>
+<p>Onder de kerngetallen staat de lijst "Act now": treden die sneller slijten dan normaal, bijvoorbeeld door vuil, een losse kam of een verkeerd uitgelijnde trede. Ze staan gesorteerd op de tijd tot de slijtagegrens, zodat de meest urgente bovenaan staat. Een live ticker toont nieuwe meldingen per station en roltrap.</p>
+<p>Vanuit het dashboard kan een beheerder doorklikken naar de stationskaart, het rapport per roltrap of direct een werkorder aanmaken.</p></article>
+  <div class="facts"><div class="stat"><span class="v">Per vloot</span><span class="l">Overzicht</span></div><div class="stat"><span class="v">Tijd tot grens</span><span class="l">Sortering</span></div><div class="stat"><span class="v">In development</span><span class="l">Status</span></div></div>
+  
+  <div class="cta">
+    <div>
+      <h3>Zien wat Stepguard op uw roltrap detecteert?</h3>
+      <p>Plan een demo of vraag de pilotopzet op.</p>
+    </div>
+    <a class="btn btn-primary" href="Contact.html">Demo aanvragen</a>
+  </div>
+  <div class="next">
+    <div class="next-eyebrow">Verder lezen</div>
+    <div class="next-grid" style="grid-template-columns:minmax(0,520px)"><a class="card" href="Artikel-team.html"><span class="shot"><img src="images/Team_update1.jpg" style="object-fit:cover" alt="Team versterkt na technische afstudeerstage" onerror="this.remove()" /></span><div class="card-body"><span class="when">Q3 2026</span><h3>Team versterkt na technische afstudeerstage</h3></div></a></div>
+  </div>
+</div>
+
+<footer class="foot">
+  <div>© 2026 Stepguard B.V. · Cboost spin-off</div>
+  <div>Voorspellend toezicht · sensor · edge-AI · asset-platform</div>
+</footer>
+
+<script id="sg-photo-slots">
+/* Fotoslots: zet data-src -> src zodra de foto in /uploads staat, behalve waar de gebruiker al iets geupload heeft. */
+document.querySelectorAll('.shot img[data-src]').forEach(function(img){
+  if(img.dataset.userUploaded) return;
+  var p = img.getAttribute('data-src');
+  var probe = new Image();
+  probe.onload = function(){ img.src = p; };
+  probe.src = p;
+});
+</script>
+<script src="arrange.js"></script>
+</body>
+</html>
