@@ -98,6 +98,11 @@
   .team-link::after{ content:"Lees meer \2192"; position:absolute; left:0; right:0; bottom:0; padding:30px 14px 12px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:linear-gradient(transparent, rgba(4,7,12,.9)); opacity:0; transform:translateY(6px); transition:opacity .25s, transform .25s; pointer-events:none; }
   .team-photo:hover .team-link::after{ opacity:1; transform:translateY(0); }
   .team-photo:hover img{ transform:scale(1.04); }
+  /* Hover: lift the hovered teammate, recede the others */
+  .team-grid .feature{ transition:transform .35s cubic-bezier(.2,.7,.3,1), opacity .35s ease, box-shadow .35s ease; transform-origin:center bottom; will-change:transform; }
+  .team-grid:hover .feature{ opacity:.55; transform:scale(.96); }
+  .team-grid .feature:hover{ opacity:1; transform:scale(1.07); z-index:2; position:relative; box-shadow:0 22px 48px rgba(0,0,0,.16); }
+  @media(hover:none){ .team-grid:hover .feature, .team-grid .feature:hover{ opacity:1; transform:none; box-shadow:none; } }
 
   /* ---------- Team bio lightbox ---------- */
   .bio-modal{ position:fixed; inset:0; z-index:120; display:flex; align-items:center; justify-content:center; padding:clamp(16px,4vw,48px); opacity:0; pointer-events:none; transition:opacity .3s ease; }
@@ -131,6 +136,15 @@
   .team-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
   @media(max-width:1040px){ .team-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media(max-width:560px){ .team-grid{ grid-template-columns:1fr; } }
+  /* In het kort — heading + parent-company logos */
+  .kort-head{ display:flex; align-items:flex-end; justify-content:flex-start; gap:36px; flex-wrap:wrap; }
+  .kort-head .section-title{ margin:0; }
+  .parent-logos{ display:flex; align-items:center; gap:22px; transform:translateY(10px); }
+  .parent-logo{ height:56px; display:flex; align-items:center; justify-content:center; }
+  .parent-logo img{ max-height:100%; width:auto; max-width:190px; object-fit:contain; display:block; }
+  .parent-logo:first-child img{ max-height:44px; }
+  .parent-plus{ font-family:var(--mono); font-size:18px; color:var(--steel); opacity:.55; }
+  @media(max-width:700px){ .kort-head{ gap:24px; } .parent-logo{ height:44px; } .parent-logo:first-child img{ max-height:34px; } }
   .factrow{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:48px; }
   .factrow.three{ grid-template-columns:repeat(3,1fr); }
   @media(max-width:760px){ .factrow.three{ grid-template-columns:1fr; } }
@@ -446,13 +460,14 @@
 
 <nav class="top">
   <div class="nav-inner">
-    <a href="https://stepguard.nl/" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
+    <a href="Homepage.html" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
     <div class="nav-links">
       <a href="https://stepguard.nl/">Home</a>
       <a href="Product.html">Product</a>
       <a href="Over-ons.html" class="active">Over ons</a>
-      <a href="Nieuws.html">Nieuws</a>
       <a href="Contact.html">Contact</a>
+      <a href="Nieuws.html">Nieuws</a>
+      <a href="Sustainability.html">Duurzaamheid</a>
     </div>
     <a href="Contact.html" class="btn btn-primary">Demo aanvragen</a>
   </div>
@@ -462,7 +477,7 @@
   <div class="wrap">
     <div class="eyebrow">Over ons</div>
     <h1 class="title">Voorspellend toezicht, <em>gebouwd in Nederland</em>.</h1>
-    <p class="lede">Stepguard is een <strong>Cboost-spin-off</strong> met één missie: roltrap-storingen voorkomen vóórdat ze gebeuren. We combineren industriële AI-vision met een meertalig asset-platform, zodat operators van reactief onderhoud naar planbare zekerheid gaan.</p>
+    <p class="lede">Stepguard is een <strong>Nederlands bedrijf</strong> met één missie: roltrap-storingen voorkomen vóórdat ze gebeuren. We combineren industriële computer vision met een meertalig asset-platform, zodat operators van reactief onderhoud naar planbare zekerheid gaan.</p>
     <div class="hero-ctas">
       <a href="Contact.html" class="btn btn-primary">Neem contact op</a>
       <a href="Product.html" class="btn btn-ghost">Bekijk het product</a>
@@ -477,7 +492,7 @@
     <h2 class="section-title">Geen passagier zou stil mogen vallen op een versleten trede.</h2>
     <p class="section-lede">Elke dag vallen roltrappen uit op het slechtst denkbare moment. De rekening voor spoedreparatie, stilstand en veiligheidsrisico komt achteraf. Onze missie is om dat om te draaien: slijtage weken vooraf zichtbaar, onderhoud gepland, treden langer mee. Onze visie reikt verder dan de roltrap: voorspellend toezicht als standaard voor alle Europese publieke infrastructuur, gebouwd in Nederland.</p>
     <div class="factrow three">
-      <div class="stat"><div class="v">80.000</div><div class="l">Actieve roltrappen in Duitsland</div></div>
+      <div class="stat"><div class="v">4.000</div><div class="l">Actieve roltrappen in Nederland</div></div>
       <div class="stat"><div class="v">24/7</div><div class="l">Continue inspectie per trede</div></div>
       <div class="stat"><div class="v">Optimaal</div><div class="l">Beschikbaarheid en ROI</div></div>
     </div>
@@ -500,7 +515,7 @@
       <div class="feature">
         <div class="num">01 · Herkomst</div>
         <h3>Uit VDB &amp; Cboost</h3>
-        <p>Een spin-off geboren uit twee Nederlandse techniekbedrijven: VDB en Cboost. Hun engineering-DNA zit in elke regel van het product.</p>
+        <p>Ontstaan uit twee Nederlandse techniekbedrijven: VDB en Cboost. Hun engineering-DNA zit in elke regel van het product.</p>
       </div>
       <div class="feature">
         <div class="num">02 · Ervaring</div>
@@ -509,8 +524,8 @@
       </div>
       <div class="feature">
         <div class="num">03 · Technologie</div>
-        <h3>Frontline AI-vision</h3>
-        <p>We brengen frontline innovatieve technologie naar een sector die nog grotendeels reactief werkt: edge-AI die elke trede ziet voordat hij faalt.</p>
+        <h3>Frontline computer vision</h3>
+        <p>We brengen frontline innovatieve technologie naar een sector die nog grotendeels reactief werkt: computer vision die elke trede ziet voordat hij faalt.</p>
       </div>
       <div class="feature">
         <div class="num">04 · Lancering</div>
@@ -528,10 +543,10 @@
     <h2 class="section-title">Mensen die u rechtstreeks spreekt.</h2>
     <p class="section-lede" style="margin-bottom:34px;">Klik op een portret voor de achtergrond en ambities van elk teamlid.</p>
     <div class="grid-3 team-grid">
-      <div class="feature"><div class="team-photo"><img src="images/willem.jpeg" alt="Willem van der Heijden" loading="lazy" /><button class="team-link" data-person="willem" aria-label="Meer over Willem van der Heijden"></button></div><div class="role-tag">Verkoop</div><h3>Willem van der Heijden</h3><p>Eerste aanspreekpunt voor operators en pilots.</p></div>
-      <div class="feature"><div class="team-photo"><img src="images/gertjan.jpeg" alt="Gertjan van den Bogaert" loading="lazy" /><button class="team-link" data-person="gertjan" aria-label="Meer over Gertjan van den Bogaert"></button></div><div class="role-tag">Planning</div><h3>Gertjan van den Bogaert</h3><p>Installatie-inschatting en uitrol over uw netwerk.</p></div>
-      <div class="feature"><div class="team-photo"><img src="images/daniel.jpeg" alt="Daniël Telgen" loading="lazy" /><button class="team-link" data-person="daniel" aria-label="Meer over Daniël Telgen"></button></div><div class="role-tag">Techniek</div><h3>Daniël Telgen</h3><p>Sensor, edge-AI en integratie met uw systemen.</p></div>
-      <div class="feature"><div class="team-photo"><img src="images/Rem.JPG" alt="Rem van der Heijden" loading="lazy" /><button class="team-link" data-person="rem" aria-label="Meer over Rem van der Heijden"></button></div><div class="role-tag">Sales engineer</div><h3>Rem van der Heijden</h3><p>Van pilot naar uitrol bij beheerders en onderhoudsteams.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/willem.jpeg" alt="Willem van der Heijden" loading="lazy" /><button class="team-link" data-person="willem" aria-label="Meer over Willem van der Heijden"></button></div><div class="role-tag">Verkoop</div><h3>Willem van der Heijden</h3><p>Eerste aanspreekpunt voor operators en pilots.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/gertjan.jpeg" alt="Gertjan van den Bogaert" loading="lazy" /><button class="team-link" data-person="gertjan" aria-label="Meer over Gertjan van den Bogaert"></button></div><div class="role-tag">Planning</div><h3>Gertjan van den Bogaert</h3><p>Installatie-inschatting en uitrol over uw netwerk.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/daniel.jpeg" alt="Daniël Telgen" loading="lazy" /><button class="team-link" data-person="daniel" aria-label="Meer over Daniël Telgen"></button></div><div class="role-tag">Techniek</div><h3>Daniël Telgen</h3><p>Sensor, computer vision en integratie met uw systemen.</p></div>
+      <div class="feature"><div class="team-photo"><img src="images/team/rem.jpeg" alt="Rem van der Heijden" loading="lazy" /><button class="team-link" data-person="rem" aria-label="Meer over Rem van der Heijden"></button></div><div class="role-tag">Sales engineer</div><h3>Rem van der Heijden</h3><p>Van pilot naar uitrol bij beheerders en onderhoudsteams.</p></div>
     </div>
   </div>
 </section>
@@ -540,9 +555,17 @@
 <section class="section">
   <div class="wrap">
     <div class="section-eyebrow">In het kort</div>
-    <h2 class="section-title">Stepguard B.V.</h2>
+    <div class="kort-head">
+      <h2 class="section-title">Stepguard B.V.</h2>
+      <div class="parent-logos">
+        <div class="parent-logo"><img src="images/cboost.png" alt="Cboost" loading="lazy" /></div>
+        <span class="parent-plus" aria-hidden="true">+</span>
+        <div class="parent-logo"><img src="images/logo-vochtwering-vdb.png" alt="VDB Vochtwering" loading="lazy" /></div>
+      </div>
+    </div>
+    <p class="section-lede" style="margin-bottom:34px;">Stepguard B.V. is een samenwerking tussen <strong>Cboost</strong> en <strong>VDB Vochtwering</strong>: twee Nederlandse bedrijven die hun kennis van industriële techniek, sensoriek en installatie bundelen. Vanaf <strong>2026</strong> zijn we onder de naam Stepguard gestart met het voorspellend bewaken van roltrappen.</p>
     <div class="factrow">
-      <div class="stat"><div class="v">2026</div><div class="l">Cboost spin-off</div></div>
+      <div class="stat"><div class="v">2026</div><div class="l">Opgericht</div></div>
       <div class="stat"><div class="v">Cromvoirt</div><div class="l">Gevestigd in NL</div></div>
       <div class="stat"><div class="v">Benelux</div><div class="l">Pilots bij de NS</div></div>
       <div class="stat"><div class="v">EU</div><div class="l">DATA-HOSTING</div></div>
@@ -598,27 +621,6 @@
 
 
 
-<!-- OVER STEPGUARD PRODUCT -->
-<section class="section" id="product-intro">
-  <div class="wrap">
-    <div class="over-grid">
-      <div>
-        <div class="section-eyebrow">Over het product</div>
-        <h2 class="section-title">Hoe Stepguard werkt: van sensor tot platform.</h2>
-        <p class="section-lede">Eén verzegelde AI-vision sensorbox onder de roltrap, gekoppeld aan een meertalig asset-platform. Hij inspecteert elke trede, scoort de melding en stuurt die binnen een seconde door, zonder de roltrap zelf aan te passen.</p>
-        <div class="hero-ctas" style="margin-top:30px">
-          <a href="Product.html" class="btn btn-primary btn-arrow">Bekijk het product&nbsp;</a>
-        </div>
-      </div>
-      <div class="over-stats">
-        <div class="over-stat"><div class="v">&lt; 1 s</div><div class="l">Van beeld tot melding</div></div>
-        <div class="over-stat"><div class="v">&lt; 2 u</div><div class="l">Montage per roltrap</div></div>
-        <div class="over-stat"><div class="v">IP65</div><div class="l">Verzegelde sensorunit</div></div>
-        <div class="over-stat"><div class="v">4</div><div class="l">Alarmniveaus</div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- CONTACT -->
 <section class="cta" id="contact">
@@ -629,7 +631,7 @@
       <p>Plan een korte demo of een installatie-inschatting. Stuur direct een bericht naar de juiste persoon, of vul het formulier in. We reageren binnen twee werkdagen, in het Nederlands, Engels of Duits.</p>
       <div class="people">
         <div class="person" id="contact-willem">
-          <div class="avatar" aria-hidden="true"><img src="images/willem.jpeg" alt="" loading="lazy" /></div>
+          <div class="avatar" aria-hidden="true"><img src="images/team/willem.jpeg" alt="" loading="lazy" /></div>
           <div class="info">
             <span class="role">Verkoop</span>
             <span class="name">Willem van der Heijden</span>
@@ -638,7 +640,7 @@
           <a class="arrow-btn" href="mailto:willem@stepguard.nl" aria-label="Mail Willem">→</a>
         </div>
         <div class="person" id="contact-gertjan">
-          <div class="avatar" aria-hidden="true"><img src="images/gertjan.jpeg" alt="" loading="lazy" /></div>
+          <div class="avatar" aria-hidden="true"><img src="images/team/gertjan.jpeg" alt="" loading="lazy" /></div>
           <div class="info">
             <span class="role">Planning</span>
             <span class="name">Gertjan van den Bogaert</span>
@@ -647,7 +649,7 @@
           <a class="arrow-btn" href="mailto:gertjan@stepguard.nl" aria-label="Mail Gertjan">→</a>
         </div>
         <div class="person" id="contact-daniel">
-          <div class="avatar" aria-hidden="true"><img src="images/daniel.jpeg" alt="" loading="lazy" /></div>
+          <div class="avatar" aria-hidden="true"><img src="images/team/daniel.jpeg" alt="" loading="lazy" /></div>
           <div class="info">
             <span class="role">Techniek</span>
             <span class="name">Daniël Telgen</span>
@@ -656,7 +658,7 @@
           <a class="arrow-btn" href="mailto:daniel@stepguard.nl" aria-label="Mail Daniël">→</a>
         </div>
         <div class="person" id="contact-rem">
-          <div class="avatar" aria-hidden="true"><img src="images/Rem.JPG" alt="" loading="lazy" /></div>
+          <div class="avatar" aria-hidden="true"><img src="images/team/rem.jpeg" alt="" loading="lazy" /></div>
           <div class="info">
             <span class="role">Sales engineer</span>
             <span class="name">Rem van der Heijden</span>
@@ -694,8 +696,8 @@
 </section>
 
 <footer class="foot">
-  <div>© 2026 Stepguard B.V. · Cboost spin-off</div>
-  <div>Voorspellend toezicht · sensor · edge-AI · asset-platform</div>
+  <div>© 2026 Stepguard B.V.</div>
+  <div>Voorspellend toezicht · sensor · computer vision · asset-platform</div>
 </footer>
 
 <!-- Team bio lightbox -->
@@ -727,7 +729,7 @@
   var PEOPLE = {
     willem: {
       name: 'Willem van der Heijden',
-      tag: 'Verkoop', img: 'images/willem.jpeg', mail: 'willem@stepguard.nl',
+      tag: 'Verkoop', img: 'images/team/willem.jpeg', mail: 'willem@stepguard.nl',
       role: {
         nl: 'Verkoop \u00b7 operators & pilots',
         en: 'Sales \u00b7 operators & pilots',
@@ -746,7 +748,7 @@
     },
     gertjan: {
       name: 'Gertjan van den Bogaert',
-      tag: 'Planning', img: 'images/gertjan.jpeg', mail: 'gertjan@stepguard.nl',
+      tag: 'Planning', img: 'images/team/gertjan.jpeg', mail: 'gertjan@stepguard.nl',
       role: {
         nl: 'Planning \u00b7 installatie & uitrol',
         en: 'Planning \u00b7 installation & rollout',
@@ -765,9 +767,9 @@
     },
     daniel: {
       name: 'Dani\u00ebl Telgen',
-      tag: 'Techniek', img: 'images/daniel.jpeg', mail: 'daniel@stepguard.nl',
+      tag: 'Techniek', img: 'images/team/daniel.jpeg', mail: 'daniel@stepguard.nl',
       role: {
-        nl: 'Techniek \u00b7 sensor, edge-AI & integratie',
+        nl: 'Techniek \u00b7 sensor, computer vision & integratie',
         en: 'Engineering \u00b7 sensor, edge computer vision & integration',
         de: 'Technik \u00b7 Sensor, Edge-Computer-Vision & Integration'
       },
@@ -784,7 +786,7 @@
     },
     rem: {
       name: 'Rem van der Heijden',
-      tag: 'Sales engineer', img: 'images/Rem.JPG', mail: 'rem@stepguard.nl',
+      tag: 'Sales engineer', img: 'images/team/rem.jpeg', mail: 'rem@stepguard.nl',
       role: {
         nl: 'Sales engineer \u00b7 van pilot naar uitrol',
         en: 'Sales engineer \u00b7 from pilot to rollout',
@@ -867,7 +869,6 @@
 })();
 </script>
 
-<script src="i18n.js"></script>
 <script src="arrange.js"></script>
 </body>
 </html>
