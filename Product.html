@@ -273,6 +273,7 @@
     object-fit: cover;
     z-index: 0;
   }
+.sp-std{margin-top:28px;max-width:760px}
 </style>
 
 <!-- ===== Storyline shared sections (quote, over, benefits, besparing, contact) ===== -->
@@ -404,15 +405,19 @@
 })();
 </script>
 <style id="box-specs">
+.gallery-grid{grid-template-columns:1.4fr 1fr;grid-template-rows:440px}
+.gallery-item.feature{grid-row:auto}
+.gallery-item.feature img{object-fit:cover;transform:scale(1.3);transform-origin:50% 45%}
+.gallery-item:has(img[src*="Schade_4"])::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.8) 100%);pointer-events:none;z-index:1}
+.gallery-item:has(img[src*="Schade_4"]) .corner,.gallery-item:has(img[src*="Schade_4"]) .meta,.gallery-item:has(img[src*="Schade_4"]) .caption{z-index:2;color:#fff}
+.gallery-item:has(img[src*="Schade_4"]) .caption *{color:#fff}
+@media(max-width:900px){.gallery-grid{grid-template-columns:1fr;grid-template-rows:repeat(2,300px)}.gallery-item.feature{grid-column:auto}}
 .bx-lead{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:stretch}
 @media(max-width:900px){.bx-lead{grid-template-columns:1fr}}
 .bx-shot{position:relative;border:1px solid var(--line-strong);border-radius:18px;background:#fff;overflow:hidden;min-height:340px;display:grid;place-items:center}
 .bx-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.3);display:block}
 .bx-shot .tag{position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#3A4350;display:flex;gap:8px;align-items:center}
 .bx-shot .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--laser);box-shadow:0 0 8px var(--laser)}
-.bx-shot .laser{position:absolute;left:0;right:0;top:20%;height:2px;background:linear-gradient(90deg,transparent,var(--laser) 15%,var(--laser) 85%,transparent);box-shadow:0 0 12px 2px rgba(255,42,42,.45);animation:bxScan 4.5s ease-in-out infinite alternate;pointer-events:none}
-@keyframes bxScan{from{top:18%}to{top:82%}}
-@media(prefers-reduced-motion:reduce){.bx-shot .laser{animation:none;top:50%}}
 .bx-nums{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .bx-num{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px 20px 18px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
 .bx-num .v{font-family:var(--display);font-weight:600;font-size:clamp(30px,3.4vw,42px);letter-spacing:-.03em;line-height:1;color:var(--text)}
@@ -429,14 +434,15 @@
 .bx-part:hover{transform:translateY(-3px);border-color:var(--accent)}
 .bx-part .cnt{font-family:var(--display);font-weight:700;font-size:56px;line-height:.9;letter-spacing:-.04em;color:var(--accent)}
 .bx-part .cnt span{font-size:.5em;margin-left:2px}
-.bx-part h4{font-family:var(--display);font-weight:600;font-size:18px;margin:16px 0 6px;color:var(--text)}
+.bx-part h4{font-family:var(--display);font-weight:600;font-size:18px;margin:0 0 6px;color:var(--text)}
 .bx-part p{margin:0;font-size:14px;line-height:1.55;color:var(--steel)}
-.bx-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.bx-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:14px;background:var(--surface);height:auto}
 @media(max-width:760px){.bx-steps{grid-template-columns:1fr}}
-.bx-step{padding:24px;border-right:1px solid var(--line);display:flex;gap:16px;align-items:flex-start}
+.bx-step{padding:24px;border-right:1px solid var(--line);display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;align-items:start;min-width:0;height:auto}
+.bx-step>div{min-width:0}
 .bx-step:last-child{border-right:0}
 @media(max-width:760px){.bx-step{border-right:0;border-bottom:1px solid var(--line)}.bx-step:last-child{border-bottom:0}}
-.bx-step .n{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:17px;color:var(--accent);border:2px solid var(--accent)}
+.bx-step .n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:17px;color:var(--accent);border:2px solid var(--accent)}
 .bx-step h4{font-family:var(--display);font-weight:600;font-size:17px;margin:8px 0 6px;color:var(--text)}
 .bx-step p{margin:0;font-size:14px;line-height:1.55;color:var(--steel)}
 .bx-note{margin-top:14px;font-size:14px;color:var(--muted);line-height:1.55}
@@ -489,7 +495,6 @@
       <a href="Over-ons.html">Over ons</a>
       <a href="Contact.html">Contact</a>
       <a href="Nieuws.html">Nieuws</a>
-      <a href="Sustainability.html">Duurzaamheid</a>
 
 
     </div>
@@ -501,7 +506,7 @@
   <div class="wrap">
     <div class="eyebrow">Het product</div>
     <h1 class="title">Eén gesloten meetmodule die <em>elke trede</em> ziet, en slijtage meldt vóór de storing.</h1>
-    <p class="lede">Stepguard is een autonome <strong>optische meetmodule</strong> die in de onderhoudsruimte van de roltrap wordt gemonteerd. Met camera's en klasse 1-lijnlasers meet hij de slijtage aan de bovenzijde van iedere passerende trede en verstuurt de meetgegevens via 4G naar het Stepguard-platform. <strong>Zonder verbinding met de besturing of veiligheidskring van de roltrap</strong>: de module kan de roltrap niet starten, stoppen of beïnvloeden.</p>
+    <p class="lede">Stepguard is een autonome <strong>optische meetmodule</strong> die in de onderhoudsruimte van de roltrap wordt ingebouwd. Hij meet de slijtage aan de profielen van elke passerende trede en ziet abnormale slijtage, meestal door een vastzittend voorwerp, al vanaf ~0,1 mm. U krijgt direct een melding. <strong>Zonder verbinding met de besturing of veiligheidskring van de roltrap</strong>: de module kan de roltrap niet starten, stoppen of beïnvloeden.</p>
     <div class="hero-ctas">
       <a href="index.html#contact" class="btn btn-primary">Boek een demo van 20 min</a>
       <a href="#system" class="btn btn-ghost">Bekijk het systeem</a>
@@ -514,33 +519,33 @@
   <div class="wrap">
     <div>
       <div class="section-eyebrow">Hoe het werkt</div>
-      <h2 class="section-title">Vier lagen tussen een versleten trede en een gevallen passagier.</h2>
+      <h2 class="section-title">Van trede tot melding, zodat u op tijd kunt ingrijpen.</h2>
       <p class="section-lede">Eén gesloten sensorunit, in de onderhoudsruimte achter een transparante polycarbonaat (PC) plaat gemonteerd, bekijkt elke trede die voorbij komt. Van beeld tot onderhoudsinformatie, zonder elektrische, data- of stuurverbinding met de roltrap.</p>
     </div>
     <div class="grid-4">
       <div class="feature">
         <div class="num">01 · Vastleggen <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg></span></div>
-        <h3>Industriële IDS-vision</h3>
-        <p>Zes industriële IDS uEye XLE-camera's kijken door de PC-plaat naar de treden. De lenzen steken niet uit de module; de PC-plaat vormt het optische venster.</p>
-        <div class="spec"><span>6× IDS uEye XLE</span><span>USB3 Vision</span></div>
+        <h3>Optische opname</h3>
+        <p>Camera's kijken door een transparante PC-plaat naar iedere passerende trede.</p>
+        <div class="spec"><span>Camera's</span><span>Achter PC-plaat</span></div>
       </div>
       <div class="feature">
         <div class="num">02 · Meten <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h3l2-7 4 14 2-7h7"/></svg></span></div>
         <h3>Optische slijtagemeting</h3>
-        <p>Drie rode lijnlasers projecteren een lijn op de treden; de camera's leggen die vast om de slijtage aan de bovenzijde van iedere trede te meten.</p>
-        <div class="spec"><span>3× lijnlaser · 2,5 mW</span><span>Laserklasse 1</span></div>
+        <p>Stepguard meet optisch de slijtage aan de profielen van iedere passerende trede, zonder contact met de roltrap.</p>
+        <div class="spec"><span>Contactloos</span><span>Elke trede</span></div>
       </div>
       <div class="feature">
         <div class="num">03 · Verwerken <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 22h20z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg></span></div>
         <h3>Verwerking in de module</h3>
-        <p>Een industriële pc in de module verwerkt de meetgegevens. Stepguard levert onderhoudsinformatie en heeft geen veiligheidsfunctie: de eindbeslissing blijft bij de technicus.</p>
-        <div class="spec"><span>OnLogic CL260</span><span>Geen veiligheidsfunctie</span></div>
+        <p>De meetgegevens worden in de module zelf verwerkt. Stepguard levert onderhoudsinformatie en heeft geen veiligheidsfunctie: de eindbeslissing blijft bij de technicus.</p>
+        <div class="spec"><span>In de module</span><span>Geen veiligheidsfunctie</span></div>
       </div>
       <div class="feature">
-        <div class="num">04 · Versturen <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></span></div>
-        <h3>4G naar het platform</h3>
-        <p>De meetgegevens gaan via een CE-gemarkeerde 4G-modem naar het Stepguard-platform, dat elke roltrap in uw vloot toont. Geen wifi, geen bluetooth, geen koppeling met het netwerk van de locatie.</p>
-        <div class="spec"><span>Teltonika TRM240</span><span>Geen wifi · bluetooth</span></div>
+        <div class="num">04 · Melden <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></span></div>
+        <h3>Melding naar uw beheerders</h3>
+        <p>Bij abnormale slijtage stuurt Stepguard via een eigen 4G-verbinding een melding naar uw beheerders. Een data-overzicht per roltrap is in ontwikkeling. Geen wifi, geen bluetooth, geen koppeling met het netwerk van de locatie.</p>
+        <div class="spec"><span>Melding</span><span>Eigen 4G</span></div>
       </div>
     </div>
   </div>
@@ -552,13 +557,13 @@
     <div>
       <div class="section-eyebrow">Het Stepguard-systeem</div>
       <h2 class="section-title">Gesloten hardware. Eenvoudige montage. Onzichtbaar in dienst.</h2>
-      <p class="section-lede">Een meetmodule, compleet gemonteerd, bedraad, ingesteld en gecontroleerd geleverd, en in de onderhoudsruimte van de roltrap gemonteerd, buiten bereik van het publiek. Hieronder een impressie van de module, de montage en de aansluiting.</p>
+      <p class="section-lede">Een meetmodule, compleet gemonteerd, bedraad, ingesteld en gecontroleerd geleverd, en in de onderhoudsruimte van de roltrap gemonteerd, buiten bereik van het publiek. Hieronder een impressie van de module en de montage.</p>
     </div>
     <div class="gallery-grid">
       <div class="gallery-item feature">
         <img src="images/Stepguard_Sheet1.png" alt="Gesloten meetmodule" />
         <span class="corner">SG-01 · Meetmodule</span>
-        <span class="meta">01 / 05</span>
+        <span class="meta">01 / 02</span>
         <span class="scan"></span>
         <div class="caption">
           <div class="lbl">Hardware</div>
@@ -567,30 +572,9 @@
         </div>
       </div>
       <div class="gallery-item">
-        <img src="images/Stepguard_Sheet2.png" alt="Montage achter de PC-plaat" />
-        <span class="corner">SG-02 · Montage</span>
-        <span class="meta">02 / 05</span>
-        <span class="scan"></span>
-        <div class="caption"><div class="lbl">In-situ</div><div class="ttl">Achter de PC-plaat</div></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/Stepguard_Sheet3.png" alt="Industriële cameramodule" />
-        <span class="corner">SG-03 · Optiek</span>
-        <span class="meta">03 / 05</span>
-        <span class="scan"></span>
-        <div class="caption"><div class="lbl">Vision</div><div class="ttl">Industriële cameramodule</div></div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/Stepguard_Sheet4.png" alt="230 V-aansluiting" />
-        <span class="corner">SG-04 · Bekabeling</span>
-        <span class="meta">04 / 05</span>
-        <span class="scan"></span>
-        <div class="caption"><div class="lbl">Installatie</div><div class="ttl">230 V-stekker · 4G</div></div>
-      </div>
-      <div class="gallery-item">
         <img src="images/Schade_4.jpeg" alt="Montage in het veld" />
-        <span class="corner">SG-05 · Installatie</span>
-        <span class="meta">05 / 05</span>
+        <span class="corner">SG-02 · Installatie</span>
+        <span class="meta">02 / 02</span>
         <span class="scan"></span>
         <div class="caption"><div class="lbl">Veld</div><div class="ttl">Zonder gereedschap uitneembaar</div></div>
       </div>
@@ -605,13 +589,13 @@
       <div class="dim-num">De&nbsp;box</div>
       <div>
         <h2 class="dim-title">Eén gesloten unit. In één oogopslag.</h2>
-        <p class="dim-lede">De meetmodule hangt in de onderhoudsruimte op de bestaande afschermplaat, achter een transparante PC-plaat die de montageopening permanent afsluit. Specificaties van het prototype, type SG-OM-01.</p>
+        <p class="dim-lede">De meetmodule hangt in de onderhoudsruimte op de bestaande afschermplaat, achter een transparante PC-plaat die de montageopening permanent afsluit. Specificaties volgens het huidige ontwerp.</p>
       </div>
     </div>
     <div class="bx-lead">
       <div class="bx-shot">
-        <img src="images/Stepguard_Sheet1.png" alt="Stepguard meetmodule SG-OM-01, isometrisch aanzicht" />
-        <span class="tag">SG-OM-01 · Meetmodule</span>
+        <img src="images/Stepguard_Sheet1.png" alt="Stepguard meetmodule, buitenaanzicht" />
+        <span class="tag">Meetmodule</span>
       </div>
       <div class="bx-nums">
         <div class="bx-num"><div class="v">794<small>mm</small></div><div class="l">Breedte</div></div>
@@ -624,10 +608,10 @@
     </div>
     <h3 class="bx-sub">Wat zit erin</h3>
     <div class="bx-parts">
-      <div class="bx-part"><div class="cnt">6<span>×</span></div><h4>Industriële camera</h4><p>IDS uEye XLE via USB3. Kijkt door de PC-plaat; de lenzen steken niet uit.</p></div>
-      <div class="bx-part"><div class="cnt">3<span>×</span></div><h4>Rode lijnlaser</h4><p>Picotronic, 2,5 mW, laserklasse 1. Projecteert een meetlijn op elke trede.</p></div>
-      <div class="bx-part"><div class="cnt">1<span>×</span></div><h4>Industriële pc</h4><p>OnLogic CL260. Verwerkt de meetgegevens in de module zelf.</p></div>
-      <div class="bx-part"><div class="cnt">1<span>×</span></div><h4>4G-modem</h4><p>Teltonika TRM240, zelf CE-gemarkeerd. Antenne op de behuizing.</p></div>
+      <div class="bx-part"><h4>Camera's</h4><p>Industriële camera's die door de PC-plaat naar de treden kijken.</p></div>
+      <div class="bx-part"><h4>Optische meting</h4><p>Meet contactloos de slijtage aan de profielen van elke trede.</p></div>
+      <div class="bx-part"><h4>Verwerking</h4><p>De meetgegevens worden in de module zelf verwerkt.</p></div>
+      <div class="bx-part"><h4>4G-verbinding</h4><p>CE-gemarkeerde modem met antenne op de behuizing.</p></div>
     </div>
     <h3 class="bx-sub">Montage in drie stappen</h3>
     <div class="bx-steps">
@@ -653,10 +637,10 @@
       <div class="sp-col yes">
         <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span>Wat Stepguard doet</h3>
         <ul>
-          <li><span><b>Meet slijtage</b> aan de bovenzijde van elke trede, optisch met camera's en lasers.</span></li>
-          <li><span><b>Levert onderhoudsinformatie</b> als aanvulling; de eindbeslissing volgt de methode van de roltrapleverancier.</span></li>
-          <li><span><b>Verstuurt data via 4G</b> naar het Stepguard-platform.</span></li>
-          <li><span><b>Start automatisch opnieuw</b> na een stroomonderbreking.</span></li>
+          <li><span><b>Meet slijtage</b> aan de profielen van elke passerende trede.</span></li>
+          <li><span><b>Signaleert abnormale slijtage</b> door een vastzittend voorwerp voordat het schade geeft, en helpt zo een volledige tredevervanging voorkomen.</span></li>
+          <li><span><b>Stuurt een melding</b> naar uw beheerders.</span></li>
+          <li><span><b>Wordt ingebouwd</b> in bestaande roltrappen, zonder koppeling met de besturing.</span></li>
         </ul>
       </div>
       <div class="sp-col no">
@@ -666,79 +650,17 @@
           <li><span><b>Kan de roltrap niet starten of stoppen</b>, en heeft geen noodstopfunctie.</span></li>
           <li><span><b>Geen bediening</b> op de module zelf.</span></li>
           <li><span><b>Geen wifi of bluetooth</b>, en geen koppeling met het netwerk van de locatie.</span></li>
+          <li><span><b>Meet geen trillingen of temperatuur</b>, en ook geen scheuren of verfschade.</span></li>
         </ul>
       </div>
     </div>
-    <h3 class="bx-sub">Beoordeeld volgens</h3>
-    <div class="sp-norms">
-      <div class="sp-norm"><div class="code">2006/42/EG</div><div class="what">Machinerichtlijn</div><p>Het wettelijke kader voor de veiligheid van machines.</p></div>
-      <div class="sp-norm"><div class="code">EN 115-2:2021</div><div class="what">Bestaande roltrappen</div><p>Veiligheid bij aanpassingen aan roltrappen die al in gebruik zijn.</p></div>
-      <div class="sp-norm"><div class="code">EN ISO 12100</div><div class="what">Risicobeoordeling</div><p>De methode waarmee alle risico's zijn geanalyseerd en afgedekt.</p></div>
-      <div class="sp-norm"><div class="code">EN 60204-1</div><div class="what">Elektrische uitrusting</div><p>Veilige bedrading en aansluiting van de 230 V-installatie.</p></div>
-      <div class="sp-norm"><div class="code">EN 60825-1</div><div class="what">Laserveiligheid</div><p>Classificatie van de lijnlasers als laserklasse 1.</p></div>
-      <div class="sp-norm"><div class="code">RED</div><div class="what">Radio Equipment Directive</div><p>De 4G-modem is zelf CE-gemarkeerd onder deze richtlijn.</p></div>
-    </div>
-    <h3 class="bx-sub">Status</h3>
-    <div class="sp-status">
-      <div class="sp-st"><span class="sp-badge">Afgerond</span><div><h4>CE-markering roltrap blijft geldig</h4><p>Uit de risicobeoordeling blijkt dat de montageopening, afgesloten met een vaste PC-plaat, een lokale aanpassing is.</p></div></div>
-      <div class="sp-st"><span class="sp-badge">Aangevraagd</span><div><h4>Octrooi</h4><p>De meet- en detectiemethode achter Stepguard is octrooi-aangevraagd.</p></div></div>
-      <div class="sp-st"><span class="sp-badge wip">In uitvoering</span><div><h4>CE-dossier module</h4><p>Wordt afgerond vóór certificering.</p></div></div>
-      <div class="sp-st"><span class="sp-badge wip">In uitvoering</span><div><h4>Beschermingsgraad (IP)</h4><p>Wordt bepaald na eindproductverificatie.</p></div></div>
-    </div>
+    <p class="bx-note sp-std">Ontwikkeld volgens de geldende Europese richtlijnen en normen, waaronder de Machinerichtlijn en EN 115-2. Het technisch dossier delen we onder NDA.</p>
   </div>
 </section>
-
-<!-- KLANT QUOTE NS -->
-<section class="sg-sec" id="quote">
-  <div class="wrap">
-    <div class="quote-card reveal">
-      <div class="quote-photo">
-        <img src="images/jeroen.jpeg" alt="ProRail" style="width: 100%; height: 100%; object-fit: contain;">
-      </div>
-      <div class="quote-body">
-        <div class="mark">&ldquo;</div>
-        <blockquote data-i18n="quote_text">We houden al toezicht op liften en zien roltrappen als de volgende logische stap op weg naar preventief onderhoud</blockquote>
-        <div class="by">
-          <div>
-            <div class="nm">Jeroen Lommers</div>
-            <div class="ti" data-i18n="quote_role">Asset Manager · NS Stations</div>
-          </div>
-          <div class="quote-logo">NS</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- OVER STEPGUARD -->
-<section class="section" id="over">
-  <div class="wrap">
-    <div class="over-grid">
-      <div>
-        <div class="section-eyebrow">Over Stepguard</div>
-        <h2 class="section-title">Een Nederlandse Cboost-spin-off die roltrappen veiliger maakt.</h2>
-        <p class="section-lede">Stepguard ontstond uit Cboost en VDB met één doel: storingen voorkomen vóórdat ze gebeuren. We bouwen voorspellend toezicht voor Europese infrastructuur, gebouwd in Nederland, uitgerold in heel Europa.</p>
-        <div class="hero-ctas" style="margin-top:30px">
-          <a href="Over-ons.html" class="btn btn-primary btn-arrow">Lees ons verhaal&nbsp;</a>
-        </div>
-      </div>
-      <div class="over-stats">
-        <div class="over-stat"><div class="v">2026</div><div class="l">Opgericht · Cboost spin-off</div></div>
-        <div class="over-stat"><div class="v">50 jr</div><div class="l">Ervaring uit VDB &amp; Cboost</div></div>
-        <div class="over-stat"><div class="v">NS</div><div class="l">Lancering met NS Stations</div></div>
-        <div class="over-stat"><div class="v">EU</div><div class="l">Data-hosting &amp; AI Act</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 
 <footer class="foot">
-  <div>© 2026 Stepguard B.V. · Cboost spin-off</div>
-  <div>Voorspellend toezicht · sensor · edge-AI · asset-platform</div>
+  <div>© 2026 Stepguard</div>
+  <div>Vroegtijdige detectie · tredeslijtage · roltrappen</div>
 </footer>
 
 
