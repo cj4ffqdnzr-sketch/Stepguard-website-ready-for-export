@@ -95,7 +95,8 @@
   .people{ display:flex; flex-direction:column; gap:12px; margin-top:18px; }
   .person{ display:flex; align-items:center; gap:16px; padding:18px; border:1px solid var(--line); border-radius:12px; background:var(--surface); transition:border-color .15s, transform .15s; }
   .person:hover{ border-color:var(--accent); transform:translateY(-1px); }
-  .person .avatar{ width:44px;height:44px;flex:none;border-radius:50%; display:grid;place-items:center; background:rgba(224,82,31,.10); border:1px solid rgba(224,82,31,.25); color:var(--accent-2); font-family:var(--display); font-weight:600; font-size:16px; }
+  .person .avatar{ width:44px;height:44px;flex:none;border-radius:50%; display:grid;place-items:center; background:rgba(224,82,31,.10); border:1px solid rgba(224,82,31,.25); color:var(--accent-2); font-family:var(--display); font-weight:600; font-size:16px; overflow:hidden; }
+  .person .avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
   .person .info{ display:flex; flex-direction:column; gap:2px; flex:1; min-width:0; }
   .person .role{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-2); }
   .person .nm{ font-family:var(--display); font-weight:600; font-size:15px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -313,11 +314,13 @@
 
 <nav class="top">
   <div class="nav-inner">
-    <a href="index.html" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
+    <a href="https://Stepguard.nl" class="brand" aria-label="Stepguard home"><span class="brand-mark"><svg class="sg-mark" viewBox="0 0 96 96" role="img" aria-label="Stepguard"><rect width="96" height="96" rx="22" fill="#16202c"/><path d="M36 20 L60 20 Q63 20 65 22 L67.5 25 Q69 27 69 30 L69 50 Q69 67 49.5 77.2 Q48 78 46.5 77.2 Q27 67 27 50 L27 30 Q27 27 28.5 25 L31 22 Q33 20 36 20 Z" fill="#eef1f3"/><rect x="32" y="53" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="39.5" y="46" width="15" height="7" rx="2.5" fill="#16202c"/><rect x="47" y="39" width="15" height="7" rx="2.5" fill="#e0521f"/></svg></span><span class="brand-name">step<b>guard</b></span></a>
     <div class="nav-links">
+      <a href="https://stepguard.nl/">Home</a>
       <a href="Product.html">Product</a>
       <a href="Over-ons.html">Over ons</a>
       <a href="Contact.html" class="active">Contact</a>
+      <a href="Nieuws.html">Nieuws</a>
     </div>
     <a href="Contact.html" class="btn btn-primary">Demo aanvragen</a>
   </div>
@@ -337,32 +340,60 @@
       <div>
         <div class="section-eyebrow">Direct contact</div>
         <div class="people">
-          <a class="person" href="mailto:willem@stepguard.nl"><span class="avatar">W</span><span class="info"><span class="role">Verkoop</span><span class="nm">Willem van der Heijden</span><span class="em">willem@stepguard.nl</span></span><span class="arrow">→</span></a>
-          <a class="person" href="mailto:gertjan@stepguard.nl"><span class="avatar">G</span><span class="info"><span class="role">Planning</span><span class="nm">Gertjan van den Bogaert</span><span class="em">gertjan@stepguard.nl</span></span><span class="arrow">→</span></a>
-          <a class="person" href="mailto:daniel@stepguard.nl"><span class="avatar">D</span><span class="info"><span class="role">Techniek</span><span class="nm">Daniël Telgen</span><span class="em">daniel@stepguard.nl</span></span><span class="arrow">→</span></a>
+          <a class="person" href="mailto:willem@stepguard.nl"><span class="avatar"><img src="uploads/Willem.jpeg" alt="Willem van der Heijden"></span><span class="info"><span class="role">Verkoop</span><span class="nm">Willem van der Heijden</span><span class="em">willem@stepguard.nl</span></span><span class="arrow">→</span></a>
+          <a class="person" href="mailto:gertjan@stepguard.nl"><span class="avatar"><img src="uploads/Gertjan.jpeg" alt="Gertjan van den Bogaert"></span><span class="info"><span class="role">Planning</span><span class="nm">Gertjan van den Bogaert</span><span class="em">gertjan@stepguard.nl</span></span><span class="arrow">→</span></a>
+          <a class="person" href="mailto:daniel@stepguard.nl"><span class="avatar"><img src="uploads/Daniel.jpeg" alt="Daniël Telgen"></span><span class="info"><span class="role">Techniek</span><span class="nm">Daniël Telgen</span><span class="em">daniel@stepguard.nl</span></span><span class="arrow">→</span></a>
+          <a class="person" href="mailto:rem@stepguard.nl"><span class="avatar"><img src="images/rem.jpeg" alt="Rem van der Heijden"></span><span class="info"><span class="role">Sales engineer</span><span class="nm">Rem van der Heijden</span><span class="em">rem@stepguard.nl</span></span><span class="arrow">→</span></a>
         </div>
         <div class="addr">
           <div><div class="lbl">Adres</div><div class="val">Loverensestraat 31<br/>5266&nbsp;AN Cromvoirt<br/>Nederland</div></div>
-          <div><div class="lbl">KvK</div><div class="val">42054745</div></div>
-          <div><div class="lbl">Bedrijf</div><div class="val">Stepguard B.V.</div></div>
         </div>
       </div>
-      <form class="cform" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Bedankt, we nemen contact op'; b.disabled=true;">
+      <form class="cform" id="contactForm">
         <div class="section-eyebrow" style="margin-bottom:4px;">Vraag een demo aan</div>
-        <div class="r2"><input type="text" placeholder="Voornaam" required/><input type="text" placeholder="Operator / bedrijf" required/></div>
-        <input type="email" placeholder="Zakelijk e-mailadres" required/>
-        <input type="text" placeholder="Netwerkgrootte, ca. aantal roltrappen"/>
-        <textarea rows="3" placeholder="Uw vraag (optioneel)"></textarea>
+        <div class="r2">
+          <input type="text" name="firstName" placeholder="Voornaam" required/>
+          <input type="text" name="company" placeholder="Operator / bedrijf" required/>
+        </div>
+        <input type="email" name="email" placeholder="Zakelijk e-mailadres" required/>
+        <input type="text" name="networkSize" placeholder="Netwerkgrootte, ca. aantal roltrappen"/>
+        <textarea rows="3" name="message" placeholder="Uw vraag (optioneel)"></textarea>
         <button class="btn btn-primary" type="submit">Demo aanvragen</button>
         <div class="hint">Wij reageren in het Nederlands, Engels of Duits, uw keuze.</div>
       </form>
+      <script>
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const btn = this.querySelector('button');
+          const formData = new FormData(this);
+          
+          try {
+            // Send email via FormSubmit.co (free service)
+            const response = await fetch('https://formsubmit.co/ajax/Rem@stepguard.nl', {
+              method: 'POST',
+              body: formData
+            });
+            
+            if (response.ok) {
+              btn.textContent = (window.SGI18N ? window.SGI18N.t('Bedankt, we nemen contact op') : 'Bedankt, we nemen contact op');
+              btn.disabled = true;
+              this.reset();
+            } else {
+              alert('Er is een fout opgetreden. Probeer alstublieft senare opnieuw.');
+            }
+          } catch (error) {
+            console.error('Form submission error:', error);
+            alert('Er is een fout opgetreden. Probeer alstublieft lastig email rechtstreeks naar contact@stepguard.nl te sturen.');
+          }
+        });
+      </script>
     </div>
   </div>
 </section>
 
 <footer class="foot">
-  <div>© 2026 Stepguard B.V. · Cboost spin-off</div>
-  <div>Voorspellend toezicht · sensor · edge-AI · asset-platform</div>
+  <div>© 2026 Stepguard</div>
+  <div>Vroegtijdige detectie · tredeslijtage · roltrappen</div>
 </footer>
 
 <script src="arrange.js"></script>
